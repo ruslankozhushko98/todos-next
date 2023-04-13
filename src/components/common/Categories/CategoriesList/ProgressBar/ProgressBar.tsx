@@ -19,6 +19,6 @@ export const ProgressBar: FC<Props> = ({ progress }) => (
       />
     </div>
 
-    <span>{progress}%</span>
+    <span className={classes.progress}>{progress}%</span>
   </div>
 );
