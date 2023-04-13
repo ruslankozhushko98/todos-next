@@ -1,0 +1,30 @@
+@import "@/styles/colors.scss";
+
+.nav {
+  position: fixed;
+  height: 60px;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $dark32;
+
+  .link {
+    color: $text;
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+  .link:hover {
+    color: $purple;
+    transition: color 0.3s ease-in-out;
+  }
+}
+
+.main {
+  margin-top: 80px;
+  width: 70%;
+  padding-left: 15%;
+}

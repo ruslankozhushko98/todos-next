@@ -1,0 +1,30 @@
+@import "@/styles/colors.scss";
+
+.container {
+  position: absolute;
+  width: 93%;
+  height: 15px;
+  bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .lineWrapper {
+    background-color: $text;
+    width: 94%;
+    border-radius: 20px;
+  }
+
+  .line {
+    border-radius: 20px;
+    height: 15px;
+  }
+
+  .lineInProgress {
+    background-color: $blue;
+  }
+
+  .lineDone {
+    background-color: $green;
+  }
+}

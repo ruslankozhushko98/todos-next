@@ -1,0 +1,17 @@
+@import "@/styles/colors.scss";
+
+.title {
+  color: $text;
+  font-size: 32px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.divider {
+  padding-bottom: 10px;
+  border-bottom: 2px solid $dark4;
+}

@@ -1,0 +1,11 @@
+@import "./colors.scss";
+
+body {
+  background-color: $dark;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
