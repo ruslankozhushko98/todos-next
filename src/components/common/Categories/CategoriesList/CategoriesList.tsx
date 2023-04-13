@@ -9,14 +9,12 @@ interface Props {
   categories: Array<Category>;
 }
 
-export const CategoriesList: FC<Props> = ({ categories }) => {
-  const renderItem = (category: Category): JSX.Element => (
-    <CategoryItem key={category.id} {...category} />
-  );
+const renderItem = (category: Category): JSX.Element => (
+  <CategoryItem key={category.id} {...category} />
+);
 
-  return (
-    <div className={classes.list}>
-      {categories?.map(renderItem)}
-    </div>
-  );
-};
+export const CategoriesList: FC<Props> = ({ categories }) => (
+  <div className={classes.list}>
+    {categories?.map(renderItem)}
+  </div>
+);
