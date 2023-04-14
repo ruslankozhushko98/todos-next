@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Roboto } from 'next/font/google';
@@ -12,10 +12,11 @@ const roboto = Roboto({
 });
 
 interface Props {
+  children: ReactNode;
   title: string;
 }
 
-export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
+export const MainLayout: FC<Props> = ({ children, title }) => {
   return (
     <>
       <Head>
