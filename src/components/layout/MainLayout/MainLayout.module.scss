@@ -18,6 +18,11 @@
     text-decoration: none;
     @include color-transition($white);
   }
+
+  .linkActive {
+    color: $white;
+    pointer-events: none;
+  }
 }
 
 .main {
