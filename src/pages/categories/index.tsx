@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import classNames from 'classnames';
 
-import { supabase } from '@/libs/config/supabase';
 import { ListViewModes } from '@/libs/utils/constants';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';

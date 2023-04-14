@@ -3,12 +3,11 @@ import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { LeftOutlined } from '@ant-design/icons';
 
-import { supabase } from '@/libs/config/supabase';
+import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 
 import classes from './CategoryDetails.module.scss';
-import { categoriesService } from '@/services/CategoriesService';
 
 interface Props {
   category: Category | null;
