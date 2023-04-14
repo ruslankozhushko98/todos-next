@@ -12,7 +12,7 @@ import { categoriesService } from '@/services/CategoriesService';
 
 interface Props {
   category: Category | null;
-  errorMessage: string | null;
+  errorMessage: string;
 }
 
 const CategoryDetails: FC<Props> = ({ category }) => {

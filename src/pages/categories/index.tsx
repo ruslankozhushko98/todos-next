@@ -13,7 +13,7 @@ import { categoriesService } from '@/services/CategoriesService';
 
 interface Props {
   categories: Array<Category>;
-  errorMessage: string | null;
+  errorMessage: string;
 }
 
 const Categories: FC<Props> = ({ categories }) => {
@@ -41,7 +41,7 @@ export async function getServerSideProps() {
   return {
     props: {
       categories: data || [],
-      errorMessage: error,
+      errorMessage: error?.message || '',
     },
   };
 }
