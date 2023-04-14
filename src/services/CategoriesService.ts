@@ -1,4 +1,4 @@
-import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { PostgrestError, PostgrestSingleResponse } from '@supabase/supabase-js';
 
 import { supabase } from '@/libs/config/supabase';
 import { Category } from '@/models';
@@ -27,7 +27,7 @@ class CategoriesService {
         ascending: true,
       });
 
-    return response;
+    return response as any;
   };
 
   public fetchCategoryDetails = async (categoryId: number): Promise<PostgrestSingleResponse<Category>> => {
@@ -36,7 +36,7 @@ class CategoriesService {
       .eq('id', categoryId)
       .single();
 
-    return response;
+    return response as any;
   };
 }
 
