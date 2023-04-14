@@ -1,17 +1,20 @@
 @import "@/styles/colors.scss";
 
 .list {
+  display: flex;
+  flex-wrap: wrap;
   padding-top: 20px;
 
   .listItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-basis: 100%;
     color: $text;
     background-color: $dark32;
     border-radius: 20px;
     margin-bottom: 20px;
-    padding: 10px 20px 35px;
+    padding: 10px 20px;
     cursor: pointer;
     text-decoration: none;
     position: relative;
@@ -45,6 +48,7 @@
 
     .content {
       margin-left: 60px;
+      width: 100%;
     }
 
     &:hover {

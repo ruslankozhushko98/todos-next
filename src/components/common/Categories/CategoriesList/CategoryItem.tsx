@@ -39,10 +39,10 @@ export const CategoryItem: FC<Category> = ({ id, title, description, progress })
       >
         {description || '- - no description - -'}
       </span>
+
+      <ProgressBar progress={Number(progress)} />
     </div>
 
     <RightOutlined className={classes.icon} />
-
-    <ProgressBar progress={Number(progress)} />
   </Link>
 );

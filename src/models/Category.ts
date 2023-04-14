@@ -5,7 +5,7 @@ export interface Category {
   title: string;
   description?: string;
   user_id: string;
-  todos: Array<Todo>;
+  todos?: Array<Todo>;
   progress: number;
   created_at?: string;
 }

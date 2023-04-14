@@ -9,6 +9,7 @@ import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitche
 import { CategoriesList } from '@/components/common/Categories/CategoriesList/CategoriesList';
 
 import classes from './Categories.module.scss';
+import { categoriesService } from '@/services/CategoriesService';
 
 interface Props {
   categories: Array<Category>;
@@ -35,11 +36,7 @@ const Categories: FC<Props> = ({ categories }) => {
 };
 
 export async function getServerSideProps() {
-  const { data, error } = await supabase.from('categories')
-    .select()
-    .order('created_at', {
-      ascending: true,
-    });
+  const { data, error } = await categoriesService.fetchCategories();
 
   return {
     props: {

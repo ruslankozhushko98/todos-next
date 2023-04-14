@@ -1,0 +1,27 @@
+@import "@/styles/colors.scss";
+@import "@/styles/mixins.scss";
+
+.backBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+
+  .icon {
+    color: $white;
+    font-size: large;
+  }
+
+  .btnText {
+    font-size: x-large;
+    color: $white;
+    margin-left: 10px;
+  }
+
+  &:hover {
+    padding-bottom: 5px;
+    border-bottom: 1px solid $white;
+  }
+}

@@ -1,13 +1,13 @@
 @import "@/styles/colors.scss";
 
 .container {
-  position: absolute;
-  width: 93%;
+  width: 100%;
   height: 15px;
   bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 7px;
 
   .lineWrapper {
     background-color: $text;
