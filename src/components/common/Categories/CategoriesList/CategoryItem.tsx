@@ -3,17 +3,23 @@ import Link from 'next/link';
 import classNames from 'classnames';
 import { CheckOutlined, RightOutlined } from '@ant-design/icons';
 
+import { ListViewModes } from '@/libs/utils/constants';
 import { Category } from '@/models';
 import { ProgressBar } from './ProgressBar/ProgressBar';
 
 import classes from './CategoriesList.module.scss';
 
-export const CategoryItem: FC<Category> = ({ id, title, description, progress }) => (
+interface Props extends Category {
+  listViewMode: ListViewModes;
+}
+
+export const CategoryItem: FC<Props> = ({ id, title, description, progress, listViewMode }) => (
   <Link
     key={id}
     href={`/categories/${id}`}
     className={classNames(classes.listItem, {
       [classes.listItemDone]: Number(progress) === 100,
+      [classes.listItemGrid]: listViewMode === ListViewModes.GALLERY_VIEW,
     })}
   >
     <div

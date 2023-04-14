@@ -2,13 +2,13 @@ import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { ListViewModes } from '@/libs/utils/constants';
+import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { CategoriesList } from '@/components/common/Categories/CategoriesList/CategoriesList';
 
 import classes from './Categories.module.scss';
-import { categoriesService } from '@/services/CategoriesService';
 
 interface Props {
   categories: Array<Category>;
@@ -29,7 +29,7 @@ const Categories: FC<Props> = ({ categories }) => {
         />
       </div>
 
-      <CategoriesList categories={categories} />
+      <CategoriesList categories={categories} listViewMode={listViewMode} />
     </MainLayout>
   );
 };
