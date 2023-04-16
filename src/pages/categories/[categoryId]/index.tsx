@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { NextPageContext } from 'next';
+import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import { LeftOutlined } from '@ant-design/icons';
 
 import { categoriesService } from '@/services/CategoriesService';
@@ -9,6 +10,10 @@ import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 
 import classes from './CategoryDetails.module.scss';
 
+interface Params extends ParsedUrlQuery {
+  categoryId: string;
+}
+
 interface Props {
   category: Category | null;
   errorMessage: string;
@@ -16,10 +21,6 @@ interface Props {
 
 const CategoryDetails: FC<Props> = ({ category }) => {
   const { back } = useRouter();
-
-  if (!category) {
-    return <h3>Loading...</h3>;
-  }
 
   return (
     <MainLayout title="Category Details">
@@ -34,8 +35,22 @@ const CategoryDetails: FC<Props> = ({ category }) => {
   );
 };
 
-export async function getServerSideProps({ query }: NextPageContext) {
-  const { data, error } = await categoriesService.fetchCategoryDetails(Number(query.categoryId));
+export async function getStaticPaths() {
+  const { data } = await categoriesService.fetchCategories();
+
+  const paths = data?.map(category => ({
+    params: { categoryId: String(category.id) },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getStaticProps: GetStaticProps<any, Params> = async ({ params }: GetStaticPropsContext<Params>) => {
+  const { data, error } = await categoriesService.fetchCategoryDetails(Number(params?.categoryId));
 
   return {
     props: {
@@ -43,6 +58,6 @@ export async function getServerSideProps({ query }: NextPageContext) {
       errorMessage: error?.message || null,
     },
   };
-}
+};
 
 export default CategoryDetails;

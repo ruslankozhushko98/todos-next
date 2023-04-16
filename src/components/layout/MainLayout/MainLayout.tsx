@@ -55,7 +55,9 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
       </nav>
 
       <main className={classNames(roboto.className, classes.main)}>
-        {children}
+        <div>
+          {children}
+        </div>
       </main>
     </>
   );
