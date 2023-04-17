@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return {
     props: {
       categories: data || [],
-      errorMessage: error?.message || '',
+      errorMessage: error?.message || null,
     },
   };
 };
