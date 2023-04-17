@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { GetStaticProps, GetStaticPropsContext } from 'next';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { LeftOutlined } from '@ant-design/icons';
@@ -35,7 +35,7 @@ const CategoryDetails: FC<Props> = ({ category }) => {
   );
 };
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const { data } = await categoriesService.fetchCategories();
 
   const paths = data?.map(category => ({
@@ -46,9 +46,9 @@ export async function getStaticPaths() {
     paths,
     fallback: true,
   };
-}
+};
 
-export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }: GetStaticPropsContext<Params>) => {
+export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   const { data, error } = await categoriesService.fetchCategoryDetails(Number(params?.categoryId));
 
   return {
