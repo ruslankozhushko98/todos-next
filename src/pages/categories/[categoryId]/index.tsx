@@ -16,7 +16,7 @@ interface Params extends ParsedUrlQuery {
 
 interface Props {
   category: Category | null;
-  errorMessage: string;
+  errorMessage: string | null;
 }
 
 const CategoryDetails: FC<Props> = ({ category }) => {
@@ -48,8 +48,7 @@ export async function getStaticPaths() {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getStaticProps: GetStaticProps<any, Params> = async ({ params }: GetStaticPropsContext<Params>) => {
+export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }: GetStaticPropsContext<Params>) => {
   const { data, error } = await categoriesService.fetchCategoryDetails(Number(params?.categoryId));
 
   return {

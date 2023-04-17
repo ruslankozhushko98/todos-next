@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 
 import { ListViewModes } from '@/libs/utils/constants';
@@ -12,7 +13,7 @@ import classes from './Categories.module.scss';
 
 interface Props {
   categories: Array<Category>;
-  errorMessage: string;
+  errorMessage: string | null;
 }
 
 const Categories: FC<Props> = ({ categories }) => {
@@ -34,7 +35,7 @@ const Categories: FC<Props> = ({ categories }) => {
   );
 };
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const { data, error } = await categoriesService.fetchCategories();
 
   return {
@@ -43,6 +44,6 @@ export async function getServerSideProps() {
       errorMessage: error?.message || '',
     },
   };
-}
+};
 
 export default Categories;
