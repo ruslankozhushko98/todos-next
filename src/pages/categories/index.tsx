@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 
@@ -8,6 +8,7 @@ import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { CategoriesList } from '@/components/common/Categories/CategoriesList/CategoriesList';
+import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 
 import classes from './Categories.module.scss';
 
@@ -18,9 +19,24 @@ interface Props {
 
 const Categories: FC<Props> = ({ categories }) => {
   const [listViewMode, setListViewMode] = useState(ListViewModes.LIST_VIEW);
+  const [search, setSearch] = useState<string>('');
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value);
+  };
+
+  const categoriesFound: Array<Category> = useMemo(() => {
+    if (search.length !== 0) {
+      return categories.filter(category => category.title.match(search) || category.description?.match(search));
+    }
+
+    return categories;
+  }, [search, categories]);
 
   return (
     <MainLayout title="Categories">
+      <SearchBar value={search} onChange={handleSearch} />
+
       <div className={classNames(classes.row, classes.divider)}>
         <span className={classes.title}>Categories</span>
 
@@ -30,7 +46,7 @@ const Categories: FC<Props> = ({ categories }) => {
         />
       </div>
 
-      <CategoriesList categories={categories} listViewMode={listViewMode} />
+      <CategoriesList categories={categoriesFound} listViewMode={listViewMode} />
     </MainLayout>
   );
 };

@@ -1,0 +1,28 @@
+@import "@/styles/colors.scss";
+
+.searchBarContainer {
+  position: relative;
+  margin-bottom: 20px;
+  width: fit-content;
+
+  .searchField {
+    background-color: $dark32;
+    border: 1px solid $dark4;
+    border-radius: 20px;
+    padding: 10px 12px;
+    color: $text;
+    width: 250px;
+    font-size: medium;
+
+    &::placeholder {
+      font-size: large;
+    }
+  }
+
+  .searchIcon {
+    color: $white;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+  }
+}
