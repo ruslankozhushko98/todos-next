@@ -1,5 +1,14 @@
 @import "@/styles/colors.scss";
 
+.list {
+  ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
 .title {
   color: $text;
   font-size: 32px;

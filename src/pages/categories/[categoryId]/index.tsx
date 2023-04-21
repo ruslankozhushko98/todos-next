@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
+import { List, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 
 import { categoriesService } from '@/services/CategoriesService';
-import { Category } from '@/models';
+import { Category, Todo } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 
 import classes from './CategoryDetails.module.scss';
@@ -22,6 +23,14 @@ interface Props {
 const CategoryDetails: FC<Props> = ({ category }) => {
   const { back } = useRouter();
 
+  const renderItem = (todo: Todo): JSX.Element => (
+    <List.Item key={todo.id} title={todo.title}>
+      <Typography.Text>
+        {todo.description}
+      </Typography.Text>
+    </List.Item>
+  );
+
   return (
     <MainLayout title="Category Details">
       <button onClick={back} className={classes.backBtn}>
@@ -31,6 +40,8 @@ const CategoryDetails: FC<Props> = ({ category }) => {
           Category {category?.id}
         </span>
       </button>
+
+      <List dataSource={category?.todos} renderItem={renderItem} />
     </MainLayout>
   );
 };

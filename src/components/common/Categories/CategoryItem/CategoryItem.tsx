@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames';
+import { Typography } from 'antd';
 import { CheckOutlined, RightOutlined } from '@ant-design/icons';
 
 import { ListViewModes } from '@/libs/utils/constants';
@@ -35,15 +36,13 @@ export const CategoryItem: FC<Props> = ({ id, title, description, progress, list
     </div>
 
     <div className={classes.content}>
-      <h3 className={classes.title}>{title}</h3>
+      <Typography.Title level={4} className={classes.title}>
+        {title}
+      </Typography.Title>
 
-      <span
-        className={classNames({
-          [classes.emptyDescription]: !description,
-        })}
-      >
+      <Typography.Text italic={!description} className={classes.description}>
         {description || '- - no description - -'}
-      </span>
+      </Typography.Text>
 
       <ProgressBar progress={Number(progress)} />
     </div>

@@ -61,6 +61,7 @@ const Categories: FC<Props> = ({ categories }) => {
       <List
         dataSource={categoriesFound}
         renderItem={renderItem}
+        className={classes.list}
         locale={{
           emptyText: (
             <Empty
