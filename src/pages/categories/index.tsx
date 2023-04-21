@@ -1,14 +1,14 @@
 import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import classNames from 'classnames';
+import { List, Row, Typography, Divider, Empty } from 'antd';
 
 import { ListViewModes } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
-import { CategoriesList } from '@/components/common/Categories/CategoriesList/CategoriesList';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
+import { CategoryItem } from '@/components/common/Categories/CategoryItem/CategoryItem';
 
 import classes from './Categories.module.scss';
 
@@ -33,20 +33,46 @@ const Categories: FC<Props> = ({ categories }) => {
     return categories;
   }, [search, categories]);
 
+  const renderItem = (item: Category): JSX.Element => (
+    <CategoryItem
+      key={item.id}
+      {...item}
+      listViewMode={listViewMode}
+    />
+  );
+
   return (
     <MainLayout title="Categories">
       <SearchBar value={search} onChange={handleSearch} />
 
-      <div className={classNames(classes.row, classes.divider)}>
-        <span className={classes.title}>Categories</span>
+      <Row justify="space-between" align="middle">
+        <Typography.Text className={classes.title}>
+          Categories
+        </Typography.Text>
 
         <ListViewSwitcher
           viewMode={listViewMode}
           setViewMode={setListViewMode}
         />
-      </div>
+      </Row>
 
-      <CategoriesList categories={categoriesFound} listViewMode={listViewMode} />
+      <Divider className={classes.divider} />
+
+      <List
+        dataSource={categoriesFound}
+        renderItem={renderItem}
+        locale={{
+          emptyText: (
+            <Empty
+              description={
+                <Typography.Text className={classes.emptyMsg}>
+                  No Data
+                </Typography.Text>
+              }
+            />
+          ),
+        }}
+      />
     </MainLayout>
   );
 };

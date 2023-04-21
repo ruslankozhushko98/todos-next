@@ -5,13 +5,10 @@
   font-size: 32px;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.emptyMsg {
+  color: $text;
 }
 
 .divider {
-  padding-bottom: 10px;
-  border-bottom: 2px solid $dark4;
+  background-color: $dark4;
 }

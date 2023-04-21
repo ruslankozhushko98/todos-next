@@ -1,0 +1,82 @@
+@import "@/styles/colors.scss";
+@import "@/styles/mixins.scss";
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 100%;
+  color: $text;
+  background-color: $dark32;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid transparent;
+
+  .rect {
+    position: absolute;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      background-color: $white;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+    }
+  }
+
+  .blueRect {
+    background-color: $blue;
+  }
+
+  .successRect {
+    background-color: $green;
+  }
+
+  .content {
+    margin-left: 60px;
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: $dark4;
+    @include color-transition($white);
+  }
+
+  .icon {
+    color: $white;
+    font-size: x-large;
+  }
+
+  .checkIcon {
+    color: $white;
+    font-size: x-large;
+    font-weight: 900;
+  }
+
+  .title {
+    margin-top: 0px;
+    margin-bottom: 8px;
+  }
+
+  .emptyDescription {
+    font-style: italic;
+  }
+}
+
+.listItemDone {
+  border: 1px solid $green;
+}
+
+.listItemGrid {
+  flex-basis: 42%;
+}
