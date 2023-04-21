@@ -5,23 +5,20 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  padding-left: 0;
+  text-decoration: none;
+  font-size: x-large;
+  color: $text;
   display: flex;
   align-items: center;
-  padding-left: 0;
 
   .icon {
-    color: $white;
+    color: $text;
     font-size: large;
-  }
-
-  .btnText {
-    font-size: x-large;
-    color: $white;
-    margin-left: 10px;
+    margin-right: 10px;
   }
 
   &:hover {
-    padding-bottom: 5px;
-    border-bottom: 1px solid $white;
+    text-decoration-line: underline;
   }
 }
