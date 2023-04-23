@@ -1,0 +1,22 @@
+@import "@/styles/colors.scss";
+
+.listItem {
+  background-color: $dark32;
+  padding: 20px !important;
+  border-radius: 20px;
+  cursor: pointer;
+
+  .title {
+    color: $text;
+    margin-top: 0;
+  }
+
+  .description {
+    color: $text;
+    font-style: italic;
+  }
+
+  &:hover {
+    background-color: $dark4;
+  }
+}

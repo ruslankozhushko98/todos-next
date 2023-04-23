@@ -1,13 +1,15 @@
-import { FC } from 'react';
+import React, { ChangeEvent, FC, useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { List, Typography } from 'antd';
+import { Divider, Empty, List, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 import { categoriesService } from '@/services/CategoriesService';
 import { Category, Todo } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
+import { SearchBar } from '@/components/common/SearchBar/SearchBar';
+import { TodoItem } from '@/components/common/CategoryDetails/TodosList/TodoItem';
 
 import classes from './CategoryDetails.module.scss';
 
@@ -21,22 +23,51 @@ interface Props {
 }
 
 const CategoryDetails: FC<Props> = ({ category }) => {
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value);
+  };
+
+  const todosFound: Array<Todo> | undefined = useMemo(() => {
+    if (search.length !== 0) {
+      return category?.todos?.filter(todo => todo?.title.match(search) || todo?.description?.match(search));
+    }
+
+    return category?.todos;
+  }, [category?.todos, search]);
+
   const renderItem = (todo: Todo): JSX.Element => (
-    <List.Item key={todo.id} title={todo.title}>
-      <Typography.Text>
-        {todo.description}
-      </Typography.Text>
-    </List.Item>
+    <TodoItem key={todo.id} {...todo} />
   );
 
   return (
     <MainLayout title="Category Details">
+      <SearchBar value={search} onChange={handleSearch} />
+
       <Link href="/categories" className={classes.backBtn}>
         <LeftOutlined className={classes.icon} />
         Back to categories list
       </Link>
 
-      <List dataSource={category?.todos} renderItem={renderItem} />
+      <Divider className={classes.divider} />
+
+      <List
+        grid={{ column: 1 }}
+        dataSource={todosFound}
+        renderItem={renderItem}
+        locale={{
+          emptyText: (
+            <Empty
+              description={
+                <Typography.Text className={classes.emptyMsg}>
+                  No Data
+                </Typography.Text>
+              }
+            />
+          ),
+        }}
+      />
     </MainLayout>
   );
 };
