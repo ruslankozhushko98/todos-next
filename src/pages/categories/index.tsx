@@ -27,7 +27,10 @@ const Categories: FC<Props> = ({ categories }) => {
 
   const categoriesFound: Array<Category> = useMemo(() => {
     if (search.length !== 0) {
-      return categories.filter(category => category.title.match(search) || category.description?.match(search));
+      return categories.filter(category =>
+        category.title.toLowerCase().match(search.toLowerCase()) ||
+        category.description?.toLowerCase().match(search.toLowerCase())
+      );
     }
 
     return categories;
