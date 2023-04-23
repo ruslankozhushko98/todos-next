@@ -11,6 +11,7 @@
   justify-content: space-around;
   align-items: center;
   background-color: $dark32;
+  z-index: 1;
 
   .link {
     color: $text;
