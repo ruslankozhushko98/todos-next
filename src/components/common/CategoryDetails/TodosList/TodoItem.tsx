@@ -32,7 +32,7 @@ export const TodoItem: FC<Todo> = ({ id, title, description, isDone }) => {
                 {title}
               </Typography.Title>
 
-              <Typography.Text className={classes.description}>
+              <Typography.Text italic className={classes.description}>
                 {description || '- - no description - -'}
               </Typography.Text>
             </div>
