@@ -41,7 +41,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
         <Link
           href="/categories"
           className={classNames(classes.link, {
-            [classes.linkActive]: pathname === '/categories',
+            [classes.linkActive]: pathname.match('/categories'),
           })}
         >
           Categories
