@@ -2,21 +2,63 @@
 
 .listItem {
   background-color: $dark32;
-  padding: 20px !important;
   border-radius: 20px;
   cursor: pointer;
+  padding: 10px 20px;
 
-  .title {
-    color: $text;
-    margin-top: 0;
+  .rect {
+    position: absolute;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    div {
+      background-color: $white;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+    }
   }
-
-  .description {
-    color: $text;
-    font-style: italic;
+  
+  .blueRect {
+    background-color: $blue;
+  }
+  
+  .successRect {
+    background-color: $green;
+  }
+  
+  .content {
+    margin-left: 60px;
+    width: 100%;
+  
+    .title {
+      margin-top: 0px;
+      margin-bottom: 8px;
+      color: $text;
+    }
+  
+    .description {
+      color: $text;
+    }
   }
 
   &:hover {
     background-color: $dark4;
+  }
+
+  .icon {
+    color: $white;
+    font-size: x-large;
+  }
+
+  .checkIcon {
+    color: $white;
+    font-size: x-large;
+    font-weight: 900;
   }
 }

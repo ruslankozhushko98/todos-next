@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { Roboto } from 'next/font/google';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
+import { Layout } from 'antd';
 
 import classes from './MainLayout.module.scss';
+
+const { Header } = Layout;
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -25,7 +28,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
         <title>{title}</title>
       </Head>
 
-      <nav className={classNames(roboto.className, classes.nav)}>
+      <Header className={classNames(roboto.className, classes.nav)}>
         <Link
           href="/"
           className={classNames(classes.link, {
@@ -52,7 +55,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
         >
           About Us
         </Link>
-      </nav>
+      </Header>
 
       <main className={classNames(roboto.className, classes.main)}>
         <div>
