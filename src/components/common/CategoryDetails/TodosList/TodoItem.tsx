@@ -4,6 +4,7 @@ import { CheckOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 
 import { Todo } from '@/models';
+import { OptionsDropdown } from './OptionsDropdown';
 
 import classes from './TodoList.module.scss';
 
@@ -38,6 +39,8 @@ export const TodoItem: FC<Todo> = ({ id, title, description, isDone }) => {
             </div>
           </Row>
         </Col>
+
+        <OptionsDropdown />
       </Row>
     </List.Item>
   );
