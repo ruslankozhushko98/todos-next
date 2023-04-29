@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import { List, Row, Typography, Divider, Empty } from 'antd';
+import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
 import { ListViewModes } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
@@ -9,6 +9,7 @@ import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 import { CategoryItem } from '@/components/common/Categories/CategoryItem/CategoryItem';
+import { SaveCategoryModal } from '@/components/common/Categories/SaveCategoryModal/SaveCategoryModal';
 
 import classes from './Categories.module.scss';
 
@@ -20,6 +21,9 @@ interface Props {
 const Categories: FC<Props> = ({ categories }) => {
   const [listViewMode, setListViewMode] = useState(ListViewModes.LIST_VIEW);
   const [search, setSearch] = useState<string>('');
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+
+  const toggleOpened = (): void => setIsOpened(!isOpened);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
@@ -46,7 +50,18 @@ const Categories: FC<Props> = ({ categories }) => {
 
   return (
     <MainLayout title="Categories">
-      <SearchBar value={search} onChange={handleSearch} />
+      <Row justify="space-between" className={classes.searchRow}>
+        <SearchBar value={search} onChange={handleSearch} />
+
+        <Button
+          type="primary"
+          htmlType="button"
+          size="large"
+          onClick={toggleOpened}
+        >
+          Add Category
+        </Button>
+      </Row>
 
       <Row justify="space-between" align="middle">
         <Typography.Text className={classes.title}>
@@ -76,6 +91,11 @@ const Categories: FC<Props> = ({ categories }) => {
             />
           ),
         }}
+      />
+
+      <SaveCategoryModal
+        isOpened={isOpened}
+        onClose={toggleOpened}
       />
     </MainLayout>
   );
