@@ -8,6 +8,7 @@ interface Props extends InputProps {
   labelAlign?: FormLabelAlign;
   hasFeedback?: boolean;
   textarea?: boolean;
+  hideError?: boolean;
 }
 
 export const TextField: FC<Props> = ({
@@ -15,6 +16,7 @@ export const TextField: FC<Props> = ({
   label,
   labelAlign,
   hasFeedback,
+  hideError = false,
   ...props
 }) => {
   const [field, meta] = useField(String(name));
@@ -27,8 +29,8 @@ export const TextField: FC<Props> = ({
     <Form.Item
       label={label}
       labelAlign={labelAlign}
-      validateStatus={isError ? 'error' : undefined}
-      help={isError ? meta.error : null}
+      validateStatus={!hideError && isError ? 'error' : undefined}
+      help={!hideError && isError ? meta.error : null}
       hasFeedback={hasFeedback}
     >
       <Input {...field} {...props} />
