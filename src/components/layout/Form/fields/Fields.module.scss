@@ -1,23 +1,22 @@
 @import "@/styles/colors.scss";
 
-.textField {
-  background-color: $dark32;
-
-  input {
-    background-color: $dark32;
-    color: $text;
-
-    &::placeholder {
-      color: $text;
-    }
-  }
-}
-
-.textarea {
+@mixin input-styles {
   background-color: $dark32;
   color: $text;
 
   &::placeholder {
     color: $text;
   }
+}
+
+.textField {
+  background-color: $dark32;
+
+  input {
+    @include input-styles();
+  }
+}
+
+.textarea {
+  @include input-styles();
 }
