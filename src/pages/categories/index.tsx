@@ -93,10 +93,12 @@ const Categories: FC<Props> = ({ categories }) => {
         }}
       />
 
-      <SaveCategoryModal
-        isOpened={isOpened}
-        onClose={toggleOpened}
-      />
+      {isOpened && (
+        <SaveCategoryModal
+          isOpened={isOpened}
+          onClose={toggleOpened}
+        />
+      )}
     </MainLayout>
   );
 };
