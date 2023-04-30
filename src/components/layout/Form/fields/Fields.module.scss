@@ -5,6 +5,7 @@
 
   input {
     background-color: $dark32;
+    color: $text;
 
     &::placeholder {
       color: $text;
@@ -14,6 +15,7 @@
 
 .textarea {
   background-color: $dark32;
+  color: $text;
 
   &::placeholder {
     color: $text;
