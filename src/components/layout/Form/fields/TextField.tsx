@@ -22,15 +22,15 @@ export const TextField: FC<Props> = ({
   const [field, meta] = useField(String(name));
 
   const isError: boolean = useMemo(() => {
-    return meta.touched && Boolean(meta.error);
+    return !hideError && meta.touched && Boolean(meta.error);
   }, [meta.touched, meta.error]);
 
   return (
     <Form.Item
       label={label}
       labelAlign={labelAlign}
-      validateStatus={!hideError && isError ? 'error' : undefined}
-      help={!hideError && isError ? meta.error : null}
+      validateStatus={isError ? 'error' : undefined}
+      help={isError ? meta.error : null}
       hasFeedback={hasFeedback}
     >
       <Input {...field} {...props} />
