@@ -2,6 +2,9 @@ import React, { FC, ReactNode, useMemo } from 'react';
 import { Form, Input, InputProps } from 'antd';
 import { FormLabelAlign } from 'antd/es/form/interface';
 import { useField } from 'formik';
+import classNames from 'classnames';
+
+import classes from './Fields.module.scss';
 
 interface Props extends InputProps {
   label?: string | ReactNode;
@@ -17,6 +20,7 @@ export const TextField: FC<Props> = ({
   labelAlign,
   hasFeedback,
   hideError = false,
+  className,
   ...props
 }) => {
   const [field, meta] = useField(String(name));
@@ -33,7 +37,11 @@ export const TextField: FC<Props> = ({
       help={isError ? meta.error : null}
       hasFeedback={hasFeedback}
     >
-      <Input {...field} {...props} />
+      <Input
+        {...field}
+        {...props}
+        className={classNames(classes.textField, className)}
+      />
     </Form.Item>
   );
 };

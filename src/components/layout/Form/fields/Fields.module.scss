@@ -1,0 +1,21 @@
+@import "@/styles/colors.scss";
+
+.textField {
+  background-color: $dark32;
+
+  input {
+    background-color: $dark32;
+
+    &::placeholder {
+      color: $text;
+    }
+  }
+}
+
+.textarea {
+  background-color: $dark32;
+
+  &::placeholder {
+    color: $text;
+  }
+}
