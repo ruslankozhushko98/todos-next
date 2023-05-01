@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
-import { Dropdown, MenuProps, Space, Typography } from 'antd';
+import { Dropdown, MenuProps, Row, Typography } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import { icons } from '@/libs/utils/constants';
@@ -55,15 +55,23 @@ export const LangDropdown: FC = () => {
         className: classes.dropdownContent,
       }}
       trigger={['click']}
-      overlayClassName={classes.langDropdown}
+      overlayClassName={classes.overlayLangDropdown}
+      className={classes.langDropdown}
     >
-      <Space align="center" className={classes.dropdownContent}>
+      <Row align="middle" className={classes.dropdownContent}>
+        <Image
+          width={16}
+          height={16}
+          src={i18n.language === 'ru' ? icons.ruFlag : icons.gbFlag}
+          alt="en"
+        />
+
         <Typography.Text className={classes.dropdownTitle}>
           {t('language')}
         </Typography.Text>
 
-        <DownOutlined />
-      </Space>
+        <DownOutlined className={classes.arrowDownIcon} />
+      </Row>
     </Dropdown>
   );
 };

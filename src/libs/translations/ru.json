@@ -34,5 +34,6 @@
     "title": "Главная"
   },
   "noDataMessage": "Нет данных",
-  "search": "Поиск"
+  "search": "Поиск",
+  "language": "Язык"
 }

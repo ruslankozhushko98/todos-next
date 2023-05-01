@@ -37,13 +37,9 @@
 }
 
 
-.langDropdown {
+.overlayLangDropdown {
   .dropdownContent {
     background-color: $dark32;
-
-    .dropdownTitle {
-      font-size: large;
-    }
   }
 
   .langItem {
@@ -57,4 +53,24 @@
       }
     }
   }
+}
+
+.langDropdown {
+  cursor: pointer;
+  height: 100%;
+  padding: 0 7px;
+
+  &:hover {
+    background-color: $dark4;
+  }
+}
+
+.dropdownTitle {
+  font-size: large;
+  color: $text;
+  margin: 0 7px;
+}
+
+.arrowDownIcon {
+  color: $text;
 }

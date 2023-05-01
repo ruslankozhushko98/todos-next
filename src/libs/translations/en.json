@@ -34,5 +34,6 @@
     "title": "Home"
   },
   "noDataMessage": "No data",
-  "search": "Search"
+  "search": "Search",
+  "language": "Language"
 }
