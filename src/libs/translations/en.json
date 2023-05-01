@@ -1,0 +1,38 @@
+{
+  "categories": {
+    "title": "Categories",
+    "addCategory": "Add category",
+    "list": {
+      "noDescriptionMessage": "- - no description - -"
+    },
+    "saveCategoryModal": {
+      "title": "Save category",
+      "saveBtn": "Save",
+      "cancelBtn": "Cancel",
+      "fields": {
+        "titleField": {
+          "label": "Title",
+          "placeholder": "Enter title"
+        },
+        "descriptionField": {
+          "label": "Description",
+          "placeholder": "Enter description"
+        }
+      }
+    }
+  },
+  "categoryDetails": {
+    "backBtn": "Back to categories list",
+    "todoList": {
+      "noDescriptionMessage": "- - no description - -"
+    }
+  },
+  "aboutUs": {
+    "title": "About us"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "noDataMessage": "No data",
+  "search": "Search"
+}

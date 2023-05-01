@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Col, List, Row, Typography } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
@@ -10,6 +11,8 @@ import classes from './TodoList.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const TodoItem: FC<Todo> = ({ id, title, description, isDone }) => {
+  const { t } = useTranslation();
+
   return (
     <List.Item>
       <Row justify="space-between" align="middle" className={classes.listItem}>
@@ -34,7 +37,7 @@ export const TodoItem: FC<Todo> = ({ id, title, description, isDone }) => {
               </Typography.Title>
 
               <Typography.Text italic className={classes.description}>
-                {description || '- - no description - -'}
+                {description || t('categoryDetails.todoList.noDescriptionMessage')}
               </Typography.Text>
             </div>
           </Row>

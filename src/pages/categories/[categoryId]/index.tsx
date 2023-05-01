@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FC, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { Divider, Empty, List, Typography } from 'antd';
@@ -23,11 +24,10 @@ interface Props {
 }
 
 const CategoryDetails: FC<Props> = ({ category }) => {
-  const [search, setSearch] = useState('');
+  const { t } = useTranslation();
+  const [search, setSearch] = useState<string>('');
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(e.target.value);
-  };
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => setSearch(e.target.value);
 
   const todosFound: Array<Todo> | undefined = useMemo(() => {
     if (search.length !== 0) {
@@ -50,7 +50,7 @@ const CategoryDetails: FC<Props> = ({ category }) => {
 
       <Link href="/categories" className={classes.backBtn}>
         <LeftOutlined className={classes.icon} />
-        Back to categories list
+        {t('categoryDetails.backBtn')}
       </Link>
 
       <Divider className={classes.divider} />

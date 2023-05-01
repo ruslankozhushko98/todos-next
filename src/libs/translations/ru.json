@@ -1,0 +1,38 @@
+{
+  "categories": {
+    "title": "Категории",
+    "addCategory": "Добавить категорию",
+    "list": {
+      "noDescriptionMessage": "- - нет описания - -"
+    },
+    "saveCategoryModal": {
+      "title": "Сохранить категорию",
+      "saveBtn": "Сохранить",
+      "cancelBtn": "Отмена",
+      "fields": {
+        "titleField": {
+          "label": "Заголовок",
+          "placeholder": "Введите заголовок"
+        },
+        "descriptionField": {
+          "label": "Описание",
+          "placeholder": "Введите описание"
+        }
+      }
+    }
+  },
+  "categoryDetails": {
+    "backBtn": "Назад к списку категорий",
+    "todoList": {
+      "noDescriptionMessage": "- - нет описания - -"
+    }
+  },
+  "aboutUs": {
+    "title": "О нас"
+  },
+  "home": {
+    "title": "Главная"
+  },
+  "noDataMessage": "Нет данных",
+  "search": "Поиск"
+}

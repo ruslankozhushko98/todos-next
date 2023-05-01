@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Form, Row, Typography } from 'antd';
 import { useFormikContext } from 'formik';
 
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
+  const { t } = useTranslation();
   const { handleSubmit, isSubmitting } = useFormikContext<SaveCategoryInitialValues>();
 
   return (
@@ -19,10 +21,10 @@ export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
       <TextField
         label={
           <Typography.Text className={classes.label}>
-            Title
+            {t('categories.saveCategoryModal.fields.titleField.label')}
           </Typography.Text>
         }
-        placeholder="Enter title"
+        placeholder={t('categories.saveCategoryModal.fields.titleField.placeholder').toString()}
         type="text"
         name="title"
         size="large"
@@ -32,10 +34,10 @@ export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
       <TextAreaField
         label={
           <Typography.Text className={classes.label}>
-            Description
+            {t('categories.saveCategoryModal.fields.descriptionField.label')}
           </Typography.Text>
         }
-        placeholder="Enter description"
+        placeholder={t('categories.saveCategoryModal.fields.descriptionField.placeholder').toString()}
         name="description"
         size="large"
         rows={10}
@@ -48,7 +50,7 @@ export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
           htmlType="button"
           onClick={onCancel}
         >
-          Cancel
+          {t('categories.saveCategoryModal.cancelBtn')}
         </Button>
 
         <Button
@@ -58,7 +60,7 @@ export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
           className={classes.saveBtn}
           loading={isSubmitting}
         >
-          Save
+          {t('categories.saveCategoryModal.saveBtn')}
         </Button>
       </Row>
     </Form>

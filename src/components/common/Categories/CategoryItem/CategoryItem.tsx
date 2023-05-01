@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { Typography } from 'antd';
@@ -14,39 +15,43 @@ interface Props extends Category {
   listViewMode: ListViewModes;
 }
 
-export const CategoryItem: FC<Props> = ({ id, title, description, progress, listViewMode }) => (
-  <Link
-    href={`/categories/${id}`}
-    className={classNames(classes.listItem, {
-      [classes.listItemDone]: Number(progress) === 100,
-      [classes.listItemGrid]: listViewMode === ListViewModes.GALLERY_VIEW,
-    })}
-  >
-    <div
-      className={classNames(classes.rect, {
-        [classes.blueRect]: Number(progress) < 100,
-        [classes.successRect]: Number(progress) === 100,
+export const CategoryItem: FC<Props> = ({ id, title, description, progress, listViewMode }) => {
+  const { t } = useTranslation();
+
+  return(
+    <Link
+      href={`/categories/${id}`}
+      className={classNames(classes.listItem, {
+        [classes.listItemDone]: Number(progress) === 100,
+        [classes.listItemGrid]: listViewMode === ListViewModes.GALLERY_VIEW,
       })}
     >
-      {Number(progress) === 100 ? (
-        <CheckOutlined className={classes.checkIcon} />
-      ) : (
-        <div />
-      )}
-    </div>
+      <div
+        className={classNames(classes.rect, {
+          [classes.blueRect]: Number(progress) < 100,
+          [classes.successRect]: Number(progress) === 100,
+        })}
+      >
+        {Number(progress) === 100 ? (
+          <CheckOutlined className={classes.checkIcon} />
+        ) : (
+          <div />
+        )}
+      </div>
 
-    <div className={classes.content}>
-      <Typography.Title level={4} className={classes.title}>
-        {title}
-      </Typography.Title>
+      <div className={classes.content}>
+        <Typography.Title level={4} className={classes.title}>
+          {title}
+        </Typography.Title>
 
-      <Typography.Text italic={!description} className={classes.description}>
-        {description || '- - no description - -'}
-      </Typography.Text>
+        <Typography.Text italic={!description} className={classes.description}>
+          {description || t('categories.list.noDescriptionMessage')}
+        </Typography.Text>
 
-      <ProgressBar progress={Number(progress)} />
-    </div>
+        <ProgressBar progress={Number(progress)} />
+      </div>
 
-    <RightOutlined className={classes.icon} />
-  </Link>
-);
+      <RightOutlined className={classes.icon} />
+    </Link>
+  );
+};

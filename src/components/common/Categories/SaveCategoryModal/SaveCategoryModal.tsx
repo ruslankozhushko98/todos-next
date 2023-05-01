@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { Formik, FormikHelpers } from 'formik';
@@ -20,6 +21,8 @@ interface Props {
 }
 
 export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
+  const { t } = useTranslation();
+
   const handleSaveCategory = (
     values: SaveCategoryInitialValues,
     formikHelpers: FormikHelpers<SaveCategoryInitialValues>
@@ -40,7 +43,7 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
           level={4}
           className={classes.title}
         >
-          Save Category
+          {t('categories.saveCategoryModal.title')}
         </Typography.Title>
       }
       closeIcon={<CloseOutlined className={classes.closeIcon} />}

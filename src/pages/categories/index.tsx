@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GetServerSideProps } from 'next';
 import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
@@ -19,15 +20,14 @@ interface Props {
 }
 
 const Categories: FC<Props> = ({ categories }) => {
+  const { t } = useTranslation();
   const [listViewMode, setListViewMode] = useState(ListViewModes.LIST_VIEW);
   const [search, setSearch] = useState<string>('');
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
   const toggleOpened = (): void => setIsOpened(!isOpened);
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(e.target.value);
-  };
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => setSearch(e.target.value);
 
   const categoriesFound: Array<Category> = useMemo(() => {
     if (search.length !== 0) {
@@ -49,7 +49,7 @@ const Categories: FC<Props> = ({ categories }) => {
   );
 
   return (
-    <MainLayout title="Categories">
+    <MainLayout title={t('categories.title')}>
       <Row justify="space-between" className={classes.searchRow}>
         <SearchBar value={search} onChange={handleSearch} />
 
@@ -59,13 +59,13 @@ const Categories: FC<Props> = ({ categories }) => {
           size="large"
           onClick={toggleOpened}
         >
-          Add Category
+          {t('categories.addCategory')}
         </Button>
       </Row>
 
       <Row justify="space-between" align="middle">
         <Typography.Text className={classes.title}>
-          Categories
+          {t('categories.title')}
         </Typography.Text>
 
         <ListViewSwitcher
@@ -85,7 +85,7 @@ const Categories: FC<Props> = ({ categories }) => {
             <Empty
               description={
                 <Typography.Text className={classes.emptyMsg}>
-                  No Data
+                  {t('noDataMessage')}
                 </Typography.Text>
               }
             />
