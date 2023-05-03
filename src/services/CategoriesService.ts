@@ -1,6 +1,4 @@
-import { PostgrestError, PostgrestSingleResponse } from '@supabase/supabase-js';
-
-import { supabase } from '@/libs/config/supabase';
+import { httpClient } from '@/libs/config/httpClient';
 import { Category } from '@/models';
 
 class CategoriesService {
@@ -20,23 +18,22 @@ class CategoriesService {
     return CategoriesService._instance;
   }
 
-  public fetchCategories = async (): Promise<PostgrestSingleResponse<Array<Category>>> =>{
-    const response = await supabase.from('categories')
-      .select()
-      .order('created_at', {
-        ascending: true,
-      });
-
-    return response as any;
+  public fetchCategories = async () => {
+    try {
+      const { data } = await httpClient.get('/categories');
+      return data;
+    } catch (error) {
+      throw new Error(`Error: Unable to fetch categories: ${error}`);
+    }
   };
 
-  public fetchCategoryDetails = async (categoryId: number): Promise<PostgrestSingleResponse<Category>> => {
-    const response = await supabase.from('categories')
-      .select('*, todos(*)')
-      .eq('id', categoryId)
-      .single();
-
-    return response as any;
+  public fetchCategoryDetails = async (categoryId: number): Promise<Category | null> => {
+    try {
+      const { data } = await httpClient.get(`/categories/${categoryId}`);
+      return data;
+    } catch (error) {
+      throw new Error(`Error: Unable to fetch category details: ${error}`);
+    }
   };
 }
 

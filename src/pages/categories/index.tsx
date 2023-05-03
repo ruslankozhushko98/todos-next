@@ -104,12 +104,12 @@ const Categories: FC<Props> = ({ categories }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { data, error } = await categoriesService.fetchCategories();
+  const data = await categoriesService.fetchCategories();
 
   return {
     props: {
       categories: data || [],
-      errorMessage: error?.message || null,
+      errorMessage: null,
     },
   };
 };

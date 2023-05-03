@@ -22,6 +22,7 @@
     }
   },
   "categoryDetails": {
+    "title": "Детали категории",
     "backBtn": "Назад к списку категорий",
     "todoList": {
       "noDescriptionMessage": "- - нет описания - -"
