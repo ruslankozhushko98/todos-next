@@ -9,7 +9,7 @@ export const categoriesApi = createApi({
   }),
   endpoints: builder => ({
     fetchCategories: builder.query<Array<Category>, undefined>({
-      query: () => '/categories'
+      query: () => '/categories',
     }),
 
     fetchCategoryDetails: builder.query<Category | null, number>({
