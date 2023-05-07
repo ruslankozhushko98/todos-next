@@ -76,7 +76,7 @@ const CategoryDetails: FC<Props> = ({ category }) => {
 };
 
 export const getStaticPaths = async () => {
-  const data = await categoriesService.fetchCategories();
+  const { data } = await categoriesService.fetchCategories();
 
   const paths = data?.map((category: Category) => ({
     params: { categoryId: String(category.id) },
@@ -89,7 +89,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const data = await categoriesService.fetchCategoryDetails(Number(params?.categoryId));
+  const { data } = await categoriesService.fetchCategoryDetails(Number(params?.categoryId));
 
   return {
     props: {

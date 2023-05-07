@@ -1,5 +1,6 @@
 import { httpClient } from '@/libs/config/httpClient';
 import { Category } from '@/models';
+import { AxiosResponse } from 'axios';
 
 class CategoriesService {
   private static _instance: CategoriesService;
@@ -18,23 +19,11 @@ class CategoriesService {
     return CategoriesService._instance;
   }
 
-  public fetchCategories = async () => {
-    try {
-      const { data } = await httpClient.get('/categories');
-      return data;
-    } catch (error) {
-      throw new Error(`Error: Unable to fetch categories: ${error}`);
-    }
-  };
+  public fetchCategories = (): Promise<AxiosResponse<Array<Category>>> =>
+    httpClient.get('/categories');
 
-  public fetchCategoryDetails = async (categoryId: number): Promise<Category | null> => {
-    try {
-      const { data } = await httpClient.get(`/categories/${categoryId}`);
-      return data;
-    } catch (error) {
-      throw new Error(`Error: Unable to fetch category details: ${error}`);
-    }
-  };
+  public fetchCategoryDetails = (categoryId: number): Promise<AxiosResponse<Category | null>> =>
+    httpClient.get(`/categories/${categoryId}`);
 }
 
 export const categoriesService = CategoriesService.getInstance;

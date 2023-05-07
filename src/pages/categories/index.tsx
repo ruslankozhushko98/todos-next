@@ -4,8 +4,9 @@ import { GetServerSideProps } from 'next';
 import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
 import { ListViewModes } from '@/libs/utils/constants';
-import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
+import { store } from '@/store';
+import { categoriesApi } from '@/store/categories/api';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
@@ -104,12 +105,12 @@ const Categories: FC<Props> = ({ categories }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const data = await categoriesService.fetchCategories();
+  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate(undefined, undefined));
 
   return {
     props: {
-      categories: data || [],
-      errorMessage: null,
+      categories: data ?? [],
+      errorMessage: error ? JSON.stringify(error) : null,
     },
   };
 };

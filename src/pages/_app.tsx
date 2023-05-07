@@ -3,8 +3,10 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
+import { Provider } from 'react-redux';
 
 import '@/libs/config/i18n';
+import { store } from '@/store';
 
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
@@ -14,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
+    <Provider store={store}>
       <NextNProgress
         height={3}
         startPosition={0.3}
@@ -23,6 +25,6 @@ export default function App({ Component, pageProps }: AppProps) {
       />
 
       <Component {...pageProps} />
-    </>
+    </Provider>
   );
 }
