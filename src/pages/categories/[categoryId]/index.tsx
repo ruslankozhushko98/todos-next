@@ -6,8 +6,9 @@ import { Divider, Empty, List, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
-import { categoriesService } from '@/services/CategoriesService';
 import { Category, Todo } from '@/models';
+import { store } from '@/store';
+import { categoriesApi } from '@/store/categories/api';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 import { TodoItem } from '@/components/common/CategoryDetails/TodosList/TodoItem';
@@ -19,7 +20,7 @@ interface Params extends ParsedUrlQuery {
 }
 
 interface Props {
-  category: Category | null;
+  category?: Category | null;
   errorMessage: string | null;
 }
 
@@ -76,7 +77,7 @@ const CategoryDetails: FC<Props> = ({ category }) => {
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await categoriesService.fetchCategories();
+  const { data } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate(undefined, undefined));
 
   const paths = data?.map((category: Category) => ({
     params: { categoryId: String(category.id) },
@@ -89,12 +90,12 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const { data } = await categoriesService.fetchCategoryDetails(Number(params?.categoryId));
+  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategoryDetails.initiate(Number(params?.categoryId)));
 
   return {
     props: {
       category: data,
-      errorMessage: null,
+      errorMessage: error ? JSON.stringify(error) : null,
     },
   };
 };
