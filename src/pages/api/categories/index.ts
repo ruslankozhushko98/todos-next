@@ -6,7 +6,7 @@ import { Category } from '@/models';
 
 type Data = Array<Category> | PostgrestError | null;
 
-export default async function handler (
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {

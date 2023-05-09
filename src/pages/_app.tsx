@@ -1,9 +1,9 @@
 import '@/styles/globals.scss';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
-import { Provider } from 'react-redux';
 
 import '@/libs/config/i18n';
 import { store } from '@/store';

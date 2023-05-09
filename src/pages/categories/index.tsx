@@ -6,7 +6,7 @@ import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 import { ListViewModes } from '@/libs/utils/constants';
 import { Category } from '@/models';
 import { store } from '@/store';
-import { categoriesApi } from '@/store/categories/api';
+import { categoriesApi } from '@/store/categories/categoriesApi';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
@@ -22,7 +22,7 @@ interface Props {
 
 const Categories: FC<Props> = ({ categories }) => {
   const { t } = useTranslation();
-  const [listViewMode, setListViewMode] = useState(ListViewModes.LIST_VIEW);
+  const [listViewMode, setListViewMode] = useState<ListViewModes>(ListViewModes.LIST_VIEW);
   const [search, setSearch] = useState<string>('');
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
@@ -105,7 +105,7 @@ const Categories: FC<Props> = ({ categories }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate(undefined, undefined));
+  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate(undefined));
 
   return {
     props: {
