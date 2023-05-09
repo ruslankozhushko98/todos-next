@@ -7,9 +7,14 @@ export const categoriesApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: String(process.env.BASE_URL),
   }),
+  tagTypes: ['Categories'],
   endpoints: builder => ({
-    fetchCategories: builder.query<Array<Category>, undefined>({
+    fetchCategories: builder.query<Array<Category>, void>({
       query: () => '/categories',
+      providesTags: (result) =>
+        result
+          ? result.map(item => ({ type: 'Categories', id: item.id }))
+          : [{ type: 'Categories', id: 'LIST' }],
     }),
 
     fetchCategoryDetails: builder.query<Category | null, number>({

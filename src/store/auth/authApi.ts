@@ -6,9 +6,14 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: String(process.env.BASE_URL),
   }),
+  tagTypes: ['User'],
   endpoints: builder => ({
-    fetchMe: builder.query<User, undefined>({
+    fetchMe: builder.query<User, void>({
       query: () => '/auth/me',
+      providesTags: (result) =>
+        result
+          ? [{ type: 'User' as never, id: result.id }]
+          : [{ type: 'User' as never, id: 'USER' }],
     }),
   }),
 });

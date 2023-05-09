@@ -26,7 +26,7 @@ interface Props {
 export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
-  const { isLoading } = useFetchMeQuery(undefined);
+  const { isLoading } = useFetchMeQuery();
 
   if (isLoading) {
     return (

@@ -105,7 +105,7 @@ const Categories: FC<Props> = ({ categories }) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate(undefined));
+  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate());
 
   return {
     props: {
