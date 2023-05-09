@@ -65,7 +65,7 @@ const CategoryDetails: FC<Props> = ({ category }) => {
             <Empty
               description={
                 <Typography.Text className={classes.emptyMsg}>
-                  No Data
+                  {t('noDataMessage')}
                 </Typography.Text>
               }
             />
@@ -77,7 +77,7 @@ const CategoryDetails: FC<Props> = ({ category }) => {
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate(undefined, undefined));
+  const { data } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate());
 
   const paths = data?.map((category: Category) => ({
     params: { categoryId: String(category.id) },
