@@ -5,7 +5,7 @@ import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
 import { ListViewModes } from '@/libs/utils/constants';
 import { Category } from '@/models';
-import { store } from '@/store';
+import { store } from '@/store/store';
 import { categoriesApi } from '@/store/categories/categoriesApi';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';

@@ -7,7 +7,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
 import { Category, Todo } from '@/models';
-import { store } from '@/store';
+import { store } from '@/store/store';
 import { categoriesApi } from '@/store/categories/categoriesApi';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';

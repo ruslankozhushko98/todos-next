@@ -1,24 +1,31 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { Category, Todo } from '@/models';
+import { SaveCategoryData } from '@/libs/utils/types';
 
 export const categoriesApi = createApi({
   reducerPath: 'api/categories',
   baseQuery: fetchBaseQuery({
-    baseUrl: String(process.env.BASE_URL),
+    baseUrl: 'http://localhost:3000/api',
   }),
-  tagTypes: ['Categories'],
+  tagTypes: ['Category'],
   endpoints: builder => ({
     fetchCategories: builder.query<Array<Category>, void>({
       query: () => '/categories',
-      providesTags: (result) =>
-        result
-          ? result.map(item => ({ type: 'Categories', id: item.id }))
-          : [{ type: 'Categories', id: 'LIST' }],
+      providesTags: ['Category'],
     }),
 
     fetchCategoryDetails: builder.query<Category | null, number>({
       query: categoryId => `/categories/${categoryId}`,
+    }),
+
+    createCategory: builder.mutation<Category | null, SaveCategoryData>({
+      query: (data) => ({
+        method: 'POST',
+        url: '/categories',
+        body: data,
+      }),
+      invalidatesTags: ['Category'],
     }),
 
     fetchTodoDetails: builder.query<Todo | null, number>({
@@ -26,3 +33,7 @@ export const categoriesApi = createApi({
     }),
   }),
 });
+
+export const {
+  useCreateCategoryMutation,
+} = categoriesApi;

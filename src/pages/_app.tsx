@@ -6,7 +6,7 @@ import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 
 import '@/libs/config/i18n';
-import { store } from '@/store';
+import { store } from '@/store/store';
 
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();

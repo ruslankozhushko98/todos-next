@@ -25,10 +25,14 @@ export default async function handler(
   }
 
   if (req.method === 'POST') {
-    const response = await supabase.from('categories')
+    const { data, error } = await supabase.from('categories')
       .insert(req.body)
       .single();
 
-    return res.status(201).json(response);
+    if (error) {
+      return res.status(500).json(error);
+    }
+
+    return res.status(201).json(data);
   }
 }
