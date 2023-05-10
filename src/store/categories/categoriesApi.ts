@@ -8,11 +8,11 @@ export const categoriesApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:3000/api',
   }),
-  tagTypes: ['Category'],
+  tagTypes: ['Categories'],
   endpoints: builder => ({
     fetchCategories: builder.query<Array<Category>, void>({
       query: () => '/categories',
-      providesTags: ['Category'],
+      providesTags: ['Categories'],
     }),
 
     fetchCategoryDetails: builder.query<Category | null, number>({
@@ -25,7 +25,7 @@ export const categoriesApi = createApi({
         url: '/categories',
         body: data,
       }),
-      invalidatesTags: ['Category'],
+      invalidatesTags: ['Categories'],
     }),
 
     fetchTodoDetails: builder.query<Todo | null, number>({
