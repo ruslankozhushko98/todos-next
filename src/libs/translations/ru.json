@@ -36,5 +36,7 @@
   },
   "noDataMessage": "Нет данных",
   "search": "Поиск",
-  "language": "Язык"
+  "language": "Язык",
+  "editBtn": "Редактировать",
+  "removeBtn": "Удалить"
 }

@@ -1,6 +1,6 @@
 import { httpClient } from '@/libs/config/httpClient';
 import { SaveCategoryData } from '@/libs/utils/types';
-import { Category } from '@/models';
+import { Category, Todo } from '@/models';
 
 class CategoriesService {
   private static _instance: CategoriesService;
@@ -31,6 +31,11 @@ class CategoriesService {
 
   public createCategory = async (categoryData: SaveCategoryData): Promise<Category | null> => {
     const { data } = await httpClient.post('/api/categories', categoryData);
+    return data;
+  };
+
+  public removeTodo = async (todoId: number): Promise<Todo | null> => {
+    const { data } = await httpClient.delete(`/api/todos/${todoId}`);
     return data;
   };
 }

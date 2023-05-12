@@ -6,10 +6,10 @@ import { Divider, Empty, List, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { DehydratedState, dehydrate, useQuery } from '@tanstack/react-query';
+import { DehydratedState, dehydrate, useMutation, useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/libs/config/queryClient';
-import { Queries } from '@/libs/utils/constants';
+import { Mutations, Queries } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category, Todo } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
@@ -31,9 +31,16 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState<string>('');
   const { query } = useRouter();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [Queries.FETCH_CATEGORIES_DETAILS, Number(query.categoryId)],
-    queryFn: () => categoriesService.fetchCategoryDetails(Number(query.categoryId))
+    queryFn: () => categoriesService.fetchCategoryDetails(Number(query.categoryId)),
+  });
+  const { mutate } = useMutation({
+    mutationKey: [Mutations.REMOVE_TODO],
+    mutationFn: categoriesService.removeTodo,
+    onSuccess: () => {
+      refetch();
+    },
   });
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => setSearch(e.target.value);
@@ -50,7 +57,11 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
   }, [data?.todos, search]);
 
   const renderItem = (todo: Todo): JSX.Element => (
-    <TodoItem key={todo.id} {...todo} />
+    <TodoItem
+      key={todo.id}
+      {...todo}
+      onRemove={mutate}
+    />
   );
 
   return (
@@ -85,12 +96,9 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
 };
 
 export const getStaticPaths = async () => {
-  const data = await queryClient.fetchQuery({
-    queryKey: [Queries.FETCH_CATEGORIES],
-    queryFn: categoriesService.fetchCategories,
-  });
+  const data = await categoriesService.fetchCategories();
 
-  const paths = data?.map((category: Category) => ({
+  const paths = data.map((category: Category) => ({
     params: { categoryId: String(category.id) },
   }));
 

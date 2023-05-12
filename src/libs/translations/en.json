@@ -36,5 +36,7 @@
   },
   "noDataMessage": "No data",
   "search": "Search",
-  "language": "Language"
+  "language": "Language",
+  "editBtn": "Edit",
+  "removeBtn": "Remove"
 }

@@ -67,3 +67,13 @@
   color: $red;
   font-size: large !important;
 }
+
+.overlayDropdown {
+  .dropdownContent {
+    background-color: $dark4;
+  }
+}
+
+.dropdownActionText {
+  color: $text;
+}

@@ -9,9 +9,14 @@ import { OptionsDropdown } from './OptionsDropdown';
 
 import classes from './TodoList.module.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const TodoItem: FC<Todo> = ({ id, title, description, isDone }) => {
+interface Props extends Todo {
+  onRemove: (todoId: number) => void;
+}
+
+export const TodoItem: FC<Props> = ({ id, title, description, isDone, onRemove }) => {
   const { t } = useTranslation();
+
+  const handleRemove = (): void => onRemove(id);
 
   return (
     <List.Item>
@@ -43,7 +48,7 @@ export const TodoItem: FC<Todo> = ({ id, title, description, isDone }) => {
           </Row>
         </Col>
 
-        <OptionsDropdown />
+        <OptionsDropdown onRemove={handleRemove} />
       </Row>
     </List.Item>
   );
