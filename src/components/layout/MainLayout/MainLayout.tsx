@@ -5,9 +5,8 @@ import Link from 'next/link';
 import { Roboto } from 'next/font/google';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
-import { Col, Layout, Row, Typography } from 'antd';
+import { Col, Layout, Row } from 'antd';
 
-import { useFetchMeQuery } from '@/store/auth/authApi';
 import { LangDropdown } from './LangDropdown';
 
 import classes from './MainLayout.module.scss';
@@ -26,15 +25,6 @@ interface Props {
 export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
-  const { isLoading } = useFetchMeQuery();
-
-  if (isLoading) {
-    return (
-      <Typography.Title level={3} className={classes.loading}>
-        Loading...
-      </Typography.Title>
-    );
-  }
 
   return (
     <>

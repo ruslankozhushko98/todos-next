@@ -1,6 +1,6 @@
 import { httpClient } from '@/libs/config/httpClient';
+import { SaveCategoryData } from '@/libs/utils/types';
 import { Category } from '@/models';
-import { AxiosResponse } from 'axios';
 
 class CategoriesService {
   private static _instance: CategoriesService;
@@ -19,11 +19,20 @@ class CategoriesService {
     return CategoriesService._instance;
   }
 
-  public fetchCategories = (): Promise<AxiosResponse<Array<Category>>> =>
-    httpClient.get('/categories');
+  public fetchCategories = async (): Promise<Array<Category>> => {
+    const { data } = await httpClient.get('/api/categories');
+    return data;
+  };
 
-  public fetchCategoryDetails = (categoryId: number): Promise<AxiosResponse<Category | null>> =>
-    httpClient.get(`/categories/${categoryId}`);
+  public fetchCategoryDetails = async (categoryId: number): Promise<Category | null> => {
+    const { data } = await httpClient.get(`/api/categories/${categoryId}`);
+    return data;
+  };
+
+  public createCategory = async (categoryData: SaveCategoryData): Promise<Category | null> => {
+    const { data } = await httpClient.post('/api/categories', categoryData);
+    return data;
+  };
 }
 
 export const categoriesService = CategoriesService.getInstance;

@@ -10,3 +10,12 @@ export const icons = {
   gbFlag,
   ruFlag,
 };
+
+export enum Queries {
+  FETCH_CATEGORIES = 'FETCH_CATEGORIES',
+  FETCH_CATEGORIES_DETAILS = 'FETCH_CATEGORIES_DETAILS',
+}
+
+export enum Mutations {
+  CREATE_CATEGORY = 'CREATE_CATEGORY',
+}

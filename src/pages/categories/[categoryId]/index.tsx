@@ -5,10 +5,13 @@ import { ParsedUrlQuery } from 'querystring';
 import { Divider, Empty, List, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { DehydratedState, dehydrate, useQuery } from '@tanstack/react-query';
 
+import { queryClient } from '@/libs/config/queryClient';
+import { Queries } from '@/libs/utils/constants';
+import { categoriesService } from '@/services/CategoriesService';
 import { Category, Todo } from '@/models';
-import { store } from '@/store/store';
-import { categoriesApi } from '@/store/categories/categoriesApi';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 import { TodoItem } from '@/components/common/CategoryDetails/TodosList/TodoItem';
@@ -20,26 +23,31 @@ interface Params extends ParsedUrlQuery {
 }
 
 interface Props {
-  category?: Category | null;
-  errorMessage: string | null;
+  dehydratedState: DehydratedState;
 }
 
-const CategoryDetails: FC<Props> = ({ category }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState<string>('');
+  const { query } = useRouter();
+  const { data } = useQuery({
+    queryKey: [Queries.FETCH_CATEGORIES_DETAILS, Number(query.categoryId)],
+    queryFn: () => categoriesService.fetchCategoryDetails(Number(query.categoryId))
+  });
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => setSearch(e.target.value);
 
   const todosFound: Array<Todo> | undefined = useMemo(() => {
     if (search.length !== 0) {
-      return category?.todos?.filter(todo =>
+      return data?.todos?.filter(todo =>
         todo?.title.toLowerCase().match(search.toLowerCase()) ||
         todo?.description?.toLowerCase().match(search.toLowerCase())
       );
     }
 
-    return category?.todos;
-  }, [category?.todos, search]);
+    return data?.todos;
+  }, [data?.todos, search]);
 
   const renderItem = (todo: Todo): JSX.Element => (
     <TodoItem key={todo.id} {...todo} />
@@ -77,7 +85,10 @@ const CategoryDetails: FC<Props> = ({ category }) => {
 };
 
 export const getStaticPaths = async () => {
-  const { data } = await store.dispatch(categoriesApi.endpoints.fetchCategories.initiate());
+  const data = await queryClient.fetchQuery({
+    queryKey: [Queries.FETCH_CATEGORIES],
+    queryFn: categoriesService.fetchCategories,
+  });
 
   const paths = data?.map((category: Category) => ({
     params: { categoryId: String(category.id) },
@@ -90,12 +101,14 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const { data, error } = await store.dispatch(categoriesApi.endpoints.fetchCategoryDetails.initiate(Number(params?.categoryId)));
+  await queryClient.prefetchQuery({
+    queryKey: [Queries.FETCH_CATEGORIES_DETAILS, Number(params?.categoryId)],
+    queryFn: () => categoriesService.fetchCategoryDetails(Number(params?.categoryId)),
+  });
 
   return {
     props: {
-      category: data,
-      errorMessage: error ? JSON.stringify(error) : null,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
