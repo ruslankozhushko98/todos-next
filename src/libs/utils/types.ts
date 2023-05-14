@@ -1,8 +1,17 @@
-export type SaveCategoryInitialValues = {
+export type SaveEntityInitialValues = {
   title: string;
   description?: string;
 };
 
 export type SaveCategoryData = {
   user_id: string;
-} & SaveCategoryInitialValues;
+} & SaveEntityInitialValues;
+
+export type SaveTodoData = {
+  category_id: number;
+  isDone: boolean;
+} & SaveEntityInitialValues;
+
+export type SaveTodoInitialValues = {
+  isDone: boolean;
+} & SaveEntityInitialValues;

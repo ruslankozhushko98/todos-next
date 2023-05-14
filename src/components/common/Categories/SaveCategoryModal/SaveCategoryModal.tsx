@@ -5,7 +5,7 @@ import { Modal, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { Formik, FormikHelpers } from 'formik';
 
-import { SaveCategoryInitialValues } from '@/libs/utils/types';
+import { SaveEntityInitialValues } from '@/libs/utils/types';
 import { saveCategoryValidationSchema } from '@/libs/utils/validationSchemas';
 import { Mutations, Queries } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
@@ -13,7 +13,7 @@ import { SaveCategoryFormContent } from './SaveCategoryFormContent';
 
 import classes from './SaveCategoryModal.module.scss';
 
-const initialValues: SaveCategoryInitialValues = {
+const initialValues: SaveEntityInitialValues = {
   title: '',
   description: '',
 };
@@ -35,8 +35,8 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
   });
 
   const handleSaveCategory = (
-    values: SaveCategoryInitialValues,
-    formikHelpers: FormikHelpers<SaveCategoryInitialValues>
+    values: SaveEntityInitialValues,
+    formikHelpers: FormikHelpers<SaveEntityInitialValues>
   ): void => {
     mutate({
       ...values,

@@ -1,0 +1,37 @@
+@import "@/styles/colors.scss";
+
+.modal {
+  div {
+    background-color: $dark32 !important;
+  }
+
+  .title {
+    color: $text;
+    margin-top: 0;
+    font-weight: 500;
+  }
+
+  .closeIcon {
+    color: $text;
+    font-size: large;
+  }
+
+  form {
+    .label {
+      color: $text;
+      font-size: medium;
+    }
+
+    .saveBtn {
+      margin-left: 16px;
+    }
+
+    .textarea {
+      resize: none;
+    }
+
+    .switchFormItem {
+      align-items: end;
+    }
+  }
+}

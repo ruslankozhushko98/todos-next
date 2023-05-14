@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { Divider, Empty, List, Typography } from 'antd';
+import { Button, Divider, Empty, List, Row, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -15,6 +15,7 @@ import { Category, Todo } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 import { TodoItem } from '@/components/common/CategoryDetails/TodosList/TodoItem';
+import { SaveTodoModal } from '@/components/common/CategoryDetails/SaveTodoModal/SaveTodoModal';
 
 import classes from './CategoryDetails.module.scss';
 
@@ -30,18 +31,23 @@ interface Props {
 const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState<string>('');
+  const [isOpened, setIsOpened] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const { query } = useRouter();
   const { data, refetch } = useQuery({
     queryKey: [Queries.FETCH_CATEGORIES_DETAILS, Number(query.categoryId)],
     queryFn: () => categoriesService.fetchCategoryDetails(Number(query.categoryId)),
   });
-  const { mutate } = useMutation({
+  const { mutate: removeTodo } = useMutation({
     mutationKey: [Mutations.REMOVE_TODO],
     mutationFn: categoriesService.removeTodo,
     onSuccess: () => {
       refetch();
     },
   });
+
+  const toggleOpened = (): void => setIsOpened(!isOpened);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => setSearch(e.target.value);
 
@@ -56,17 +62,32 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
     return data?.todos;
   }, [data?.todos, search]);
 
+  const selectedTodo: Todo | undefined = useMemo(() => {
+    return data?.todos?.find(todo => todo.id === selectedTodoId);
+  }, [selectedTodoId]);
+
   const renderItem = (todo: Todo): JSX.Element => (
     <TodoItem
       key={todo.id}
       {...todo}
-      onRemove={mutate}
+      onRemove={removeTodo}
     />
   );
 
   return (
     <MainLayout title={t('categoryDetails.title')}>
-      <SearchBar value={search} onChange={handleSearch} />
+      <Row justify="space-between" align="middle">
+        <SearchBar value={search} onChange={handleSearch} />
+
+        <Button
+          type="primary"
+          htmlType="button"
+          size="large"
+          onClick={toggleOpened}
+        >
+          {t('categoryDetails.todoList.addTodo')}
+        </Button>
+      </Row>
 
       <Link href="/categories" className={classes.backBtn}>
         <LeftOutlined className={classes.icon} />
@@ -90,6 +111,12 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
             />
           ),
         }}
+      />
+
+      <SaveTodoModal
+        isOpened={isOpened}
+        onClose={toggleOpened}
+        selectedTodo={selectedTodo}
       />
     </MainLayout>
   );

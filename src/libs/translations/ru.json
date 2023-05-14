@@ -17,6 +17,9 @@
         "descriptionField": {
           "label": "Описание",
           "placeholder": "Введите описание"
+        },
+        "switchField": {
+          "label": "Выполнено"
         }
       }
     }
@@ -25,7 +28,8 @@
     "title": "Детали категории",
     "backBtn": "Назад к списку категорий",
     "todoList": {
-      "noDescriptionMessage": "- - нет описания - -"
+      "noDescriptionMessage": "- - нет описания - -",
+      "addTodo": "Добавить задачу"
     }
   },
   "aboutUs": {
