@@ -63,6 +63,7 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
       open={isOpened}
       onCancel={onClose}
       footer={null}
+      destroyOnClose
       centered
       className={classes.modal}
     >

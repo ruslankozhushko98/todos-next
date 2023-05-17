@@ -78,6 +78,7 @@ export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) =>
       closeIcon={<CloseOutlined className={classes.closeIcon} />}
       open={isOpened}
       onCancel={onClose}
+      destroyOnClose
       footer={null}
       centered
       className={classes.modal}

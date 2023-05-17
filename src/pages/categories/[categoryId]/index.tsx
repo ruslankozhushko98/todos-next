@@ -135,13 +135,11 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
         }}
       />
 
-      {isOpened && (
-        <SaveTodoModal
-          isOpened={isOpened}
-          onClose={toggleOpened}
-          selectedTodo={selectedTodo}
-        />
-      )}
+      <SaveTodoModal
+        isOpened={isOpened}
+        onClose={toggleOpened}
+        selectedTodo={selectedTodo}
+      />
     </MainLayout>
   );
 };

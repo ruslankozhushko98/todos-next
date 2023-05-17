@@ -100,12 +100,10 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
         }}
       />
 
-      {isOpened && (
-        <SaveCategoryModal
-          isOpened={isOpened}
-          onClose={toggleOpened}
-        />
-      )}
+      <SaveCategoryModal
+        isOpened={isOpened}
+        onClose={toggleOpened}
+      />
     </MainLayout>
   );
 };
