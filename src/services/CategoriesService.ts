@@ -34,6 +34,11 @@ class CategoriesService {
     return data;
   };
 
+  public editCategory = async (categoryData: Category): Promise<Category | null> => {
+    const { data } = await httpClient.put(`/api/categories/${categoryData.id}`, categoryData);
+    return data;
+  };
+
   public removeTodo = async (todoId: number): Promise<Todo | null> => {
     const { data } = await httpClient.delete(`/api/todos/${todoId}`);
     return data;

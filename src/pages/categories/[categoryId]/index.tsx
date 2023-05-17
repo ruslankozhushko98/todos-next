@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useMemo, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -6,7 +6,13 @@ import { Button, Divider, Empty, List, Row, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { DehydratedState, dehydrate, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  DehydratedState,
+  dehydrate,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { queryClient } from '@/libs/config/queryClient';
 import { Mutations, Queries } from '@/libs/utils/constants';
@@ -32,12 +38,15 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState<string>('');
   const [isOpened, setIsOpened] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
   const { query } = useRouter();
-  const { data, refetch } = useQuery({
-    queryKey: [Queries.FETCH_CATEGORIES_DETAILS, Number(query.categoryId)],
+  const queryClient = useQueryClient();
+  const { data, refetch, isFetching, isRefetching } = useQuery({
+    queryKey: [Queries.FETCH_CATEGORY_DETAILS, Number(query.categoryId)],
     queryFn: () => categoriesService.fetchCategoryDetails(Number(query.categoryId)),
+    onSuccess: (data) => {
+      queryClient.setQueryData([Queries.FETCH_CATEGORY_DETAILS], data);
+    },
   });
   const { mutate: removeTodo } = useMutation({
     mutationKey: [Mutations.REMOVE_TODO],
@@ -47,9 +56,20 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
     },
   });
 
+  useEffect(() => {
+    if (!isOpened && selectedTodoId !== null) {
+      setSelectedTodoId(null);
+    }
+  }, [isOpened, selectedTodoId]);
+
   const toggleOpened = (): void => setIsOpened(!isOpened);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => setSearch(e.target.value);
+
+  const onEdit = (todoId: number): void => {
+    setSelectedTodoId(todoId);
+    toggleOpened();
+  };
 
   const todosFound: Array<Todo> | undefined = useMemo(() => {
     if (search.length !== 0) {
@@ -71,6 +91,7 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
       key={todo.id}
       {...todo}
       onRemove={removeTodo}
+      onEdit={onEdit}
     />
   );
 
@@ -98,8 +119,9 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
 
       <List
         grid={{ column: 1 }}
-        dataSource={todosFound}
+        dataSource={todosFound?.sort((a, b) => a.id - b.id)}
         renderItem={renderItem}
+        loading={isFetching || isRefetching}
         locale={{
           emptyText: (
             <Empty
@@ -113,11 +135,13 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
         }}
       />
 
-      <SaveTodoModal
-        isOpened={isOpened}
-        onClose={toggleOpened}
-        selectedTodo={selectedTodo}
-      />
+      {isOpened && (
+        <SaveTodoModal
+          isOpened={isOpened}
+          onClose={toggleOpened}
+          selectedTodo={selectedTodo}
+        />
+      )}
     </MainLayout>
   );
 };
@@ -137,7 +161,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   await queryClient.prefetchQuery({
-    queryKey: [Queries.FETCH_CATEGORIES_DETAILS, Number(params?.categoryId)],
+    queryKey: [Queries.FETCH_CATEGORY_DETAILS, Number(params?.categoryId)],
     queryFn: () => categoriesService.fetchCategoryDetails(Number(params?.categoryId)),
   });
 

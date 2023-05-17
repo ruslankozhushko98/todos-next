@@ -11,12 +11,22 @@ import classes from './TodoList.module.scss';
 
 interface Props extends Todo {
   onRemove: (todoId: number) => void;
+  onEdit: (todoId: number) => void;
 }
 
-export const TodoItem: FC<Props> = ({ id, title, description, isDone, onRemove }) => {
+export const TodoItem: FC<Props> = ({
+  id,
+  title,
+  description,
+  isDone,
+  onRemove,
+  onEdit,
+}) => {
   const { t } = useTranslation();
 
   const handleRemove = (): void => onRemove(id);
+
+  const handleEdit = (): void => onEdit(id);
 
   return (
     <List.Item>
@@ -48,7 +58,10 @@ export const TodoItem: FC<Props> = ({ id, title, description, isDone, onRemove }
           </Row>
         </Col>
 
-        <OptionsDropdown onRemove={handleRemove} />
+        <OptionsDropdown
+          onRemove={handleRemove}
+          onEdit={handleEdit}
+        />
       </Row>
     </List.Item>
   );

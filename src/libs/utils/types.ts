@@ -1,6 +1,6 @@
 export type SaveEntityInitialValues = {
   title: string;
-  description?: string;
+  description: string;
 };
 
 export type SaveCategoryData = {

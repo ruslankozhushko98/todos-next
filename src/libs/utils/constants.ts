@@ -13,7 +13,7 @@ export const icons = {
 
 export enum Queries {
   FETCH_CATEGORIES = 'FETCH_CATEGORIES',
-  FETCH_CATEGORIES_DETAILS = 'FETCH_CATEGORIES_DETAILS',
+  FETCH_CATEGORY_DETAILS = 'FETCH_CATEGORY_DETAILS',
 }
 
 export enum Mutations {

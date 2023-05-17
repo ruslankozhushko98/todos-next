@@ -51,6 +51,7 @@ export const SaveTodoFormContent: FC<Props> = ({ onCancel }) => {
 
       <Row justify="end">
         <SwitchField
+          formItemClassName={classes.formItemSwitch}
           name="isDone"
           label={
             <Typography.Text className={classes.label}>

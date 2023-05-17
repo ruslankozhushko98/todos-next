@@ -29,5 +29,14 @@
     .textarea {
       resize: none;
     }
+
+    .formItemSwitch {
+      & > div {
+        & > div {
+          padding-bottom: 0;
+          align-items: end;
+        }
+      }
+    }
   }
 }

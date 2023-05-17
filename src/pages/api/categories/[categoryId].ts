@@ -24,12 +24,16 @@ export default async function handler(
   }
 
   if (req.method === 'PUT') {
-    const response = await supabase.from('categories')
+    const { data, error } = await supabase.from('categories')
       .update(req.body)
       .eq('id', req.query.categoryId)
       .single();
 
-    return res.status(200).json(response);
+    if (error) {
+      return res.status(500).json(error);
+    }
+
+    return res.status(200).json(data);
   }
 
   if (req.method === 'DELETE') {

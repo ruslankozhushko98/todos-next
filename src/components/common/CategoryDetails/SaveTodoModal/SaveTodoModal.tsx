@@ -21,12 +21,6 @@ interface Props {
   selectedTodo?: Todo;
 }
 
-const initialValues = {
-  title: '',
-  description: '',
-  isDone: false,
-};
-
 export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) => {
   const { t } = useTranslation();
   const { query } = useRouter();
@@ -35,21 +29,23 @@ export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) =>
     mutationKey: [Mutations.CREATE_TODO],
     mutationFn: categoriesService.createTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries([Queries.FETCH_CATEGORIES_DETAILS]);
+      queryClient.invalidateQueries([Queries.FETCH_CATEGORY_DETAILS]);
     },
   });
   const { mutate: editTodo } = useMutation({
     mutationKey: [Mutations.EDIT_TODO],
     mutationFn: categoriesService.editTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries([Queries.FETCH_CATEGORIES_DETAILS]);
+      queryClient.invalidateQueries([Queries.FETCH_CATEGORY_DETAILS]);
     },
   });
 
-  const handleSaveTodo = (
-    values: SaveTodoInitialValues, 
+  const handleSaveTodo = async (
+    values: SaveTodoInitialValues,
     formikHelpers: FormikHelpers<SaveTodoInitialValues>,
-  ): void => {
+  ): Promise<void> => {
+    formikHelpers.setSubmitting(true);
+
     if (selectedTodo) {
       editTodo({
         ...selectedTodo,
@@ -87,7 +83,11 @@ export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) =>
       className={classes.modal}
     >
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          title: selectedTodo?.title ? String(selectedTodo?.title) : '',
+          description: selectedTodo?.description ? String(selectedTodo?.description) : '',
+          isDone: Boolean(selectedTodo?.isDone),
+        }}
         validationSchema={saveTodoValidationSchema}
         onSubmit={handleSaveTodo}
       >

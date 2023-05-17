@@ -9,6 +9,7 @@ interface Props extends SwitchProps {
   hasFeedback?: boolean;
   textarea?: boolean;
   hideError?: boolean;
+  formItemClassName?: string;
   name: string;
 }
 
@@ -17,9 +18,12 @@ export const SwitchField: FC<Props> = ({
   label,
   labelAlign,
   hasFeedback,
+  formItemClassName,
   ...props
 }) => {
   const [field, meta, helpers] = useField(name);
+
+  const handleChange = (checked: boolean): void => helpers.setValue(checked); 
 
   const isError: boolean = useMemo(() => {
     return meta.touched && Boolean(meta.error);
@@ -32,13 +36,12 @@ export const SwitchField: FC<Props> = ({
       validateStatus={isError ? 'error' : undefined}
       help={isError ? meta.error : null}
       hasFeedback={hasFeedback}
+      className={formItemClassName}
     >
       <Switch
         {...props}
         checked={field.value}
-        onChange={(checked) => {
-          helpers.setValue(checked);
-        }}
+        onChange={handleChange}
       />
     </Form.Item>
   );

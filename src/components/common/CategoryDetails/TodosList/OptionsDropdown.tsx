@@ -7,9 +7,10 @@ import classes from './TodoList.module.scss';
 
 interface Props {
   onRemove: () => void;
+  onEdit: () => void;
 }
 
-export const OptionsDropdown: FC<Props> = ({ onRemove }) => {
+export const OptionsDropdown: FC<Props> = ({ onRemove, onEdit }) => {
   const { t } = useTranslation();
 
   return (
@@ -24,6 +25,7 @@ export const OptionsDropdown: FC<Props> = ({ onRemove }) => {
               </Typography.Text>
             ),
             icon: <EditOutlined className={classes.editIcon} />,
+            onClick: onEdit,
           },
           {
             key: 1,
