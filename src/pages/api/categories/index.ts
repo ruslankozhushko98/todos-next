@@ -27,6 +27,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const { data, error } = await supabase.from('categories')
       .insert(req.body)
+      .select()
       .single();
 
     if (error) {
