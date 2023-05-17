@@ -65,11 +65,46 @@ export default async function handler(
   }
 
   if (req.method === 'DELETE') {
-    const response = await supabase.from('todos')
+    const todoRemoved = await supabase.from('todos')
       .delete()
       .eq('id', req.query.todoId)
+      .select()
       .single<Todo>();
 
-    return res.status(200).json(response);
+    const categoryDetails = await supabase.from('categories')
+      .select('*, todos(*)')
+      .eq('id', todoRemoved.data?.category_id)
+      .single<Category>();
+
+    const progress = Number(
+      (
+        (Number(
+          categoryDetails.data?.todos?.reduce(
+            (accumulator, current) => accumulator + Number(current.isDone),
+            0,
+          ),
+        ) / Number(categoryDetails.data?.todos?.length)) * 100
+      ).toFixed(0),
+    );
+
+    const updatedCategory = await supabase.from('categories')
+      .update({
+        ...categoryDetails.data,
+        progress,
+        todos: undefined,
+      })
+      .eq('id', categoryDetails.data?.id)
+      .select()
+      .single<Category>();
+
+    const error = todoRemoved.error
+      || categoryDetails.error
+      || updatedCategory.error;
+
+    if (error) {
+      return res.status(500).json(error);
+    }
+
+    return res.status(200).json(todoRemoved);
   }
 }
