@@ -1,7 +1,6 @@
-import { PostgrestError, PostgrestSingleResponse } from '@supabase/supabase-js';
-
-import { supabase } from '@/libs/config/supabase';
-import { Category } from '@/models';
+import { httpClient } from '@/libs/config/httpClient';
+import { SaveCategoryData, SaveTodoData } from '@/libs/utils/types';
+import { Category, Todo } from '@/models';
 
 class CategoriesService {
   private static _instance: CategoriesService;
@@ -20,23 +19,39 @@ class CategoriesService {
     return CategoriesService._instance;
   }
 
-  public fetchCategories = async (): Promise<PostgrestSingleResponse<Array<Category>>> =>{
-    const response = await supabase.from('categories')
-      .select()
-      .order('created_at', {
-        ascending: true,
-      });
-
-    return response as any;
+  public fetchCategories = async (): Promise<Array<Category>> => {
+    const { data } = await httpClient.get('/api/categories');
+    return data;
   };
 
-  public fetchCategoryDetails = async (categoryId: number): Promise<PostgrestSingleResponse<Category>> => {
-    const response = await supabase.from('categories')
-      .select('*, todos(*)')
-      .eq('id', categoryId)
-      .single();
+  public fetchCategoryDetails = async (categoryId: number): Promise<Category | null> => {
+    const { data } = await httpClient.get(`/api/categories/${categoryId}`);
+    return data;
+  };
 
-    return response as any;
+  public createCategory = async (categoryData: SaveCategoryData): Promise<Category | null> => {
+    const { data } = await httpClient.post('/api/categories', categoryData);
+    return data;
+  };
+
+  public editCategory = async (categoryData: Category): Promise<Category | null> => {
+    const { data } = await httpClient.put(`/api/categories/${categoryData.id}`, categoryData);
+    return data;
+  };
+
+  public removeTodo = async (todoId: number): Promise<Todo | null> => {
+    const { data } = await httpClient.delete(`/api/todos/${todoId}`);
+    return data;
+  };
+
+  public createTodo = async (todoData: SaveTodoData): Promise<Todo | null> => {
+    const { data } = await httpClient.post('/api/todos', todoData);
+    return data;
+  };
+
+  public editTodo = async (todoData: Todo): Promise<Todo | null> => {
+    const { data } = await httpClient.put(`/api/todos/${todoData.id}`, todoData);
+    return data;
   };
 }
 

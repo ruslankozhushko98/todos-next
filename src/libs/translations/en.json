@@ -17,23 +17,27 @@
         "descriptionField": {
           "label": "Description",
           "placeholder": "Enter description"
+        },
+        "switchField": {
+          "label": "Is done"
         }
       }
     }
   },
   "categoryDetails": {
+    "title": "Category details",
     "backBtn": "Back to categories list",
     "todoList": {
-      "noDescriptionMessage": "- - no description - -"
+      "noDescriptionMessage": "- - no description - -",
+      "addTodo": "Add Todo"
     }
-  },
-  "aboutUs": {
-    "title": "About us"
   },
   "home": {
     "title": "Home"
   },
   "noDataMessage": "No data",
   "search": "Search",
-  "language": "Language"
+  "language": "Language",
+  "editBtn": "Edit",
+  "removeBtn": "Remove"
 }

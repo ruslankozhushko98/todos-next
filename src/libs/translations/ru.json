@@ -17,23 +17,27 @@
         "descriptionField": {
           "label": "Описание",
           "placeholder": "Введите описание"
+        },
+        "switchField": {
+          "label": "Выполнено"
         }
       }
     }
   },
   "categoryDetails": {
+    "title": "Детали категории",
     "backBtn": "Назад к списку категорий",
     "todoList": {
-      "noDescriptionMessage": "- - нет описания - -"
+      "noDescriptionMessage": "- - нет описания - -",
+      "addTodo": "Добавить задачу"
     }
-  },
-  "aboutUs": {
-    "title": "О нас"
   },
   "home": {
     "title": "Главная"
   },
   "noDataMessage": "Нет данных",
   "search": "Поиск",
-  "language": "Язык"
+  "language": "Язык",
+  "editBtn": "Редактировать",
+  "removeBtn": "Удалить"
 }

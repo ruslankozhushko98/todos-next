@@ -1,10 +1,13 @@
 import '@/styles/globals.scss';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { QueryClientProvider, Hydrate } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 
 import '@/libs/config/i18n';
+import { queryClient } from '@/libs/config/queryClient';
 
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
@@ -14,15 +17,19 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
-      <NextNProgress
-        height={3}
-        startPosition={0.3}
-        stopDelayMs={200}
-        color="#29D"
-      />
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <NextNProgress
+          height={3}
+          startPosition={0.3}
+          stopDelayMs={200}
+          color="#29D"
+        />
 
-      <Component {...pageProps} />
-    </>
+        <Component {...pageProps} />
+
+        <ReactQueryDevtools />
+      </Hydrate>
+    </QueryClientProvider>
   );
 }

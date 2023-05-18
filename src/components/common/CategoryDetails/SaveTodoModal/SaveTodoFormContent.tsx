@@ -1,20 +1,24 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Form, Row, Typography } from 'antd';
 import { useFormikContext } from 'formik';
+import { Button, Form, Row, Typography } from 'antd';
 
-import { SaveEntityInitialValues } from '@/libs/utils/types';
-import { TextField, TextAreaField } from '@/components/layout/Form/fields';
+import { SaveTodoInitialValues } from '@/libs/utils/types';
+import {
+  TextAreaField,
+  TextField,
+  SwitchField,
+} from '@/components/layout/Form/fields';
 
-import classes from './SaveCategoryModal.module.scss';
+import classes from './SaveTodoModal.module.scss';
 
 interface Props {
   onCancel: () => void;
 }
 
-export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
+export const SaveTodoFormContent: FC<Props> = ({ onCancel }) => {
   const { t } = useTranslation();
-  const { handleSubmit, isSubmitting } = useFormikContext<SaveEntityInitialValues>();
+  const { handleSubmit, isSubmitting } = useFormikContext<SaveTodoInitialValues>();
 
   return (
     <Form onFinish={handleSubmit} layout="vertical">
@@ -28,10 +32,12 @@ export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
         type="text"
         name="title"
         size="large"
+        autoFocus
         hasFeedback
       />
 
       <TextAreaField
+        className={classes.textarea}
         label={
           <Typography.Text className={classes.label}>
             {t('categories.saveCategoryModal.fields.descriptionField.label')}
@@ -42,6 +48,18 @@ export const SaveCategoryFormContent: FC<Props> = ({ onCancel }) => {
         size="large"
         rows={10}
       />
+
+      <Row justify="end">
+        <SwitchField
+          formItemClassName={classes.formItemSwitch}
+          name="isDone"
+          label={
+            <Typography.Text className={classes.label}>
+              {t('categories.saveCategoryModal.fields.switchField.label')}
+            </Typography.Text>
+          }
+        />
+      </Row>
 
       <Row justify="end" align="middle">
         <Button

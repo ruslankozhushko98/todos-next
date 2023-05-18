@@ -55,17 +55,6 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
               {t('categories.title')}
             </Link>
           </Col>
-
-          <Col>
-            <Link
-              href="/about-us"
-              className={classNames(classes.link, {
-                [classes.linkActive]: pathname === '/about-us',
-              })}
-            >
-              {t('aboutUs.title')}
-            </Link>
-          </Col>
         </Row>
 
         <LangDropdown />
