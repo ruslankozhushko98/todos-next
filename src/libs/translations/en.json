@@ -35,9 +35,17 @@
   "home": {
     "title": "Home"
   },
+  "auth": {
+    "signOut": "Sign Out",
+    "signIn": {
+      "title": "Sign In",
+      "signInBtn": "Sign In"
+    }
+  },
   "noDataMessage": "No data",
   "search": "Search",
   "language": "Language",
   "editBtn": "Edit",
-  "removeBtn": "Remove"
+  "removeBtn": "Remove",
+  "hey": "Hey"
 }

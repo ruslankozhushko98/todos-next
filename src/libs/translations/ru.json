@@ -35,9 +35,17 @@
   "home": {
     "title": "Главная"
   },
+  "auth": {
+    "signOut": "Выход",
+    "signIn": {
+      "title": "Логин",
+      "signInBtn": "Войти"
+    }
+  },
   "noDataMessage": "Нет данных",
   "search": "Поиск",
   "language": "Язык",
   "editBtn": "Редактировать",
-  "removeBtn": "Удалить"
+  "removeBtn": "Удалить",
+  "hey": "Ку"
 }

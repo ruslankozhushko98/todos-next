@@ -4,10 +4,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Roboto } from 'next/font/google';
 import { useRouter } from 'next/router';
+import { useSession, signIn } from 'next-auth/react';
 import classNames from 'classnames';
-import { Col, Layout, Row } from 'antd';
+import { Button, Col, Layout, Row, Typography } from 'antd';
 
-import { LangDropdown } from './LangDropdown';
+import { UserDropdown } from '@/components/layout/UserDropdown/UserDropdown';
 
 import classes from './MainLayout.module.scss';
 
@@ -25,6 +26,7 @@ interface Props {
 export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
+  const { status } = useSession();
 
   return (
     <>
@@ -57,7 +59,15 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
           </Col>
         </Row>
 
-        <LangDropdown />
+        {status === 'authenticated' ? (
+          <UserDropdown />
+        ) : (
+          <Button htmlType="button" type="text" onClick={() => signIn('google')}>
+            <Typography.Text className={classes.link}>
+              {t('auth.signIn.signInBtn')}
+            </Typography.Text>
+          </Button>
+        )}
       </Header>
 
       <main className={classNames(roboto.className, classes.main)}>
