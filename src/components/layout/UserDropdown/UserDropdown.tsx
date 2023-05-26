@@ -73,7 +73,10 @@ export const UserDropdown: FC = () => {
           {t('auth.signOut')}
         </Typography.Text>
       ),
-      onClick: () => signOut(),
+      onClick: () => signOut({
+        redirect: true,
+        callbackUrl: '/auth/sign-in',
+      }),
       key: 'sign-out',
     },
   ];

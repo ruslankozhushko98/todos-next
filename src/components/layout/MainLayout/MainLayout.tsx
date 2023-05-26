@@ -4,9 +4,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Roboto } from 'next/font/google';
 import { useRouter } from 'next/router';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import classNames from 'classnames';
-import { Button, Col, Layout, Row, Typography } from 'antd';
+import { Col, Layout, Row } from 'antd';
 
 import { UserDropdown } from '@/components/layout/UserDropdown/UserDropdown';
 
@@ -21,9 +21,10 @@ const roboto = Roboto({
 
 interface Props {
   title: string;
+  className?: string;
 }
 
-export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
+export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title, className }) => {
   const { t } = useTranslation();
   const { pathname } = useRouter();
   const { status } = useSession();
@@ -62,15 +63,16 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title }) =>
         {status === 'authenticated' ? (
           <UserDropdown />
         ) : (
-          <Button htmlType="button" type="text" onClick={() => signIn('google')}>
-            <Typography.Text className={classes.link}>
-              {t('auth.signIn.signInBtn')}
-            </Typography.Text>
-          </Button>
+          <Link
+            href="/auth/sign-in"
+            className={classes.link}
+          >
+            {t('auth.signIn.signInBtn')}
+          </Link>
         )}
       </Header>
 
-      <main className={classNames(roboto.className, classes.main)}>
+      <main className={classNames(roboto.className, classes.main, className)}>
         <div>
           {children}
         </div>

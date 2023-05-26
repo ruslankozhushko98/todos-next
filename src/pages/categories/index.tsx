@@ -9,6 +9,7 @@ import { queryClient } from '@/libs/config/queryClient';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
+import { IsAuthMiddleware } from '@/components/layout/middlewares/IsAuthMiddleware';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 import { CategoryItem } from '@/components/common/Categories/CategoryItem/CategoryItem';
@@ -56,55 +57,57 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
   );
 
   return (
-    <MainLayout title={t('categories.title')}>
-      <Row justify="space-between" className={classes.searchRow}>
-        <SearchBar value={search} onChange={handleSearch} />
+    <IsAuthMiddleware>
+      <MainLayout title={t('categories.title')}>
+        <Row justify="space-between" className={classes.searchRow}>
+          <SearchBar value={search} onChange={handleSearch} />
 
-        <Button
-          type="primary"
-          htmlType="button"
-          size="large"
-          onClick={toggleOpened}
-        >
-          {t('categories.addCategory')}
-        </Button>
-      </Row>
+          <Button
+            type="primary"
+            htmlType="button"
+            size="large"
+            onClick={toggleOpened}
+          >
+            {t('categories.addCategory')}
+          </Button>
+        </Row>
 
-      <Row justify="space-between" align="middle">
-        <Typography.Text className={classes.title}>
-          {t('categories.title')}
-        </Typography.Text>
+        <Row justify="space-between" align="middle">
+          <Typography.Text className={classes.title}>
+            {t('categories.title')}
+          </Typography.Text>
 
-        <ListViewSwitcher
-          viewMode={listViewMode}
-          setViewMode={setListViewMode}
+          <ListViewSwitcher
+            viewMode={listViewMode}
+            setViewMode={setListViewMode}
+          />
+        </Row>
+
+        <Divider className={classes.divider} />
+
+        <List
+          dataSource={categoriesFound}
+          renderItem={renderItem}
+          className={classes.list}
+          locale={{
+            emptyText: (
+              <Empty
+                description={
+                  <Typography.Text className={classes.emptyMsg}>
+                    {t('noDataMessage')}
+                  </Typography.Text>
+                }
+              />
+            ),
+          }}
         />
-      </Row>
 
-      <Divider className={classes.divider} />
-
-      <List
-        dataSource={categoriesFound}
-        renderItem={renderItem}
-        className={classes.list}
-        locale={{
-          emptyText: (
-            <Empty
-              description={
-                <Typography.Text className={classes.emptyMsg}>
-                  {t('noDataMessage')}
-                </Typography.Text>
-              }
-            />
-          ),
-        }}
-      />
-
-      <SaveCategoryModal
-        isOpened={isOpened}
-        onClose={toggleOpened}
-      />
-    </MainLayout>
+        <SaveCategoryModal
+          isOpened={isOpened}
+          onClose={toggleOpened}
+        />
+      </MainLayout>
+    </IsAuthMiddleware>
   );
 };
 
