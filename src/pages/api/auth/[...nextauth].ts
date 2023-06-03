@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
+// import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
 
 import { supabase } from '@/libs/config/supabase';
 
