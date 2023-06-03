@@ -6,10 +6,10 @@ import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
 import { ListViewModes, Queries } from '@/libs/utils/constants';
 import { queryClient } from '@/libs/config/queryClient';
+import { isAuth } from '@/middlewares';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
-import { IsAuthMiddleware } from '@/components/layout/middlewares/IsAuthMiddleware';
 import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
 import { SearchBar } from '@/components/common/SearchBar/SearchBar';
 import { CategoryItem } from '@/components/common/Categories/CategoryItem/CategoryItem';
@@ -57,61 +57,61 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
   );
 
   return (
-    <IsAuthMiddleware>
-      <MainLayout title={t('categories.title')}>
-        <Row justify="space-between" className={classes.searchRow}>
-          <SearchBar value={search} onChange={handleSearch} />
+    <MainLayout title={t('categories.title')}>
+      <Row justify="space-between" className={classes.searchRow}>
+        <SearchBar value={search} onChange={handleSearch} />
 
-          <Button
-            type="primary"
-            htmlType="button"
-            size="large"
-            onClick={toggleOpened}
-          >
-            {t('categories.addCategory')}
-          </Button>
-        </Row>
+        <Button
+          type="primary"
+          htmlType="button"
+          size="large"
+          onClick={toggleOpened}
+        >
+          {t('categories.addCategory')}
+        </Button>
+      </Row>
 
-        <Row justify="space-between" align="middle">
-          <Typography.Text className={classes.title}>
-            {t('categories.title')}
-          </Typography.Text>
+      <Row justify="space-between" align="middle">
+        <Typography.Text className={classes.title}>
+          {t('categories.title')}
+        </Typography.Text>
 
-          <ListViewSwitcher
-            viewMode={listViewMode}
-            setViewMode={setListViewMode}
-          />
-        </Row>
-
-        <Divider className={classes.divider} />
-
-        <List
-          dataSource={categoriesFound}
-          renderItem={renderItem}
-          className={classes.list}
-          locale={{
-            emptyText: (
-              <Empty
-                description={
-                  <Typography.Text className={classes.emptyMsg}>
-                    {t('noDataMessage')}
-                  </Typography.Text>
-                }
-              />
-            ),
-          }}
+        <ListViewSwitcher
+          viewMode={listViewMode}
+          setViewMode={setListViewMode}
         />
+      </Row>
 
-        <SaveCategoryModal
-          isOpened={isOpened}
-          onClose={toggleOpened}
-        />
-      </MainLayout>
-    </IsAuthMiddleware>
+      <Divider className={classes.divider} />
+
+      <List
+        dataSource={categoriesFound}
+        renderItem={renderItem}
+        className={classes.list}
+        locale={{
+          emptyText: (
+            <Empty
+              description={
+                <Typography.Text className={classes.emptyMsg}>
+                  {t('noDataMessage')}
+                </Typography.Text>
+              }
+            />
+          ),
+        }}
+      />
+
+      <SaveCategoryModal
+        isOpened={isOpened}
+        onClose={toggleOpened}
+      />
+    </MainLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  await isAuth(context);
+
   await queryClient.prefetchQuery([Queries.FETCH_CATEGORIES], categoriesService.fetchCategories);
 
   return {
