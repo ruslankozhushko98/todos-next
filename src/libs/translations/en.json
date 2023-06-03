@@ -36,10 +36,21 @@
     "title": "Home"
   },
   "auth": {
+    "orYouCan": "Or you can:",
     "signOut": "Sign Out",
     "signIn": {
       "title": "Sign In",
-      "signInBtn": "Sign In"
+      "signInBtn": "Sign In",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password"
+        }
+      }
     }
   },
   "noDataMessage": "No data",

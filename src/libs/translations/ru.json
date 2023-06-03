@@ -38,8 +38,19 @@
   "auth": {
     "signOut": "Выход",
     "signIn": {
+      "orYouCan": "Или вы можете:",
       "title": "Логин",
-      "signInBtn": "Войти"
+      "signInBtn": "Войти",
+      "fields": {
+        "email": {
+          "label": "Эл почта",
+          "placeholder": "Введите эл почту"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        }
+      }
     }
   },
   "noDataMessage": "Нет данных",

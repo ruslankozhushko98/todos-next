@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { Dropdown, MenuProps, Row, Typography } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 import { icons } from '@/libs/utils/constants';
 
@@ -92,13 +92,17 @@ export const UserDropdown: FC = () => {
       className={classes.dropdown}
     >
       <Row align="middle" className={classes.dropdownContent}>
-        <img
-          width={40}
-          height={40}
-          src={String(data?.user?.image)}
-          alt="avatar"
-          className={classes.avatar}
-        />
+        {data?.user?.image ? (
+          <img
+            width={40}
+            height={40}
+            src={String(data?.user?.image)}
+            alt="avatar"
+            className={classes.avatar}
+          />
+        ) : (
+          <UserOutlined className={classes.userIcon} />
+        )}
 
         <Typography.Text className={classes.dropdownTitle}>
           {t('hey')}, {data?.user?.name?.split(' ')[0]}
