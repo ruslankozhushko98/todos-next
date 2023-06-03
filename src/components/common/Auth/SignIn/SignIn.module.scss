@@ -1,0 +1,15 @@
+@import "@/styles/colors.scss";
+
+.label {
+  color: $text;
+  font-size: medium;
+}
+
+.signInBtn {
+  width: 100%;
+
+  .signInBtnText {
+    color: $white;
+    font-size: medium;
+  }
+}

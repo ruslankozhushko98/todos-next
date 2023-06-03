@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -29,6 +29,10 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title, clas
   const { pathname } = useRouter();
   const { status } = useSession();
 
+  const isAuthenticated: boolean = useMemo(() => {
+    return status === 'authenticated';
+  }, [status]);
+
   return (
     <>
       <Head>
@@ -48,19 +52,21 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({ children, title, clas
             </Link>
           </Col>
 
-          <Col>
-            <Link
-              href="/categories"
-              className={classNames(classes.link, {
-                [classes.linkActive]: pathname.match('/categories'),
-              })}
-            >
-              {t('categories.title')}
-            </Link>
-          </Col>
+          {isAuthenticated && (
+            <Col>
+              <Link
+                href="/categories"
+                className={classNames(classes.link, {
+                  [classes.linkActive]: pathname.match('/categories'),
+                })}
+              >
+                {t('categories.title')}
+              </Link>
+            </Col>
+          )}
         </Row>
 
-        {status === 'authenticated' ? (
+        {isAuthenticated ? (
           <UserDropdown />
         ) : (
           <Link

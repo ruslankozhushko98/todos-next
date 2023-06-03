@@ -166,6 +166,13 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@next-auth/upstash-redis-adapter@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@next-auth/upstash-redis-adapter/-/upstash-redis-adapter-3.0.4.tgz#9769b6cec783c3142689fe252a47932f61824553"
+  integrity sha512-az9hFemtnSry7YAaVvxPEwGZSbnK8xiRLX/C5bDsM1ibQWSx6aIp7QY3Kk4NSdqU6LONkXnjndKKhrUnwEmfFw==
+  dependencies:
+    uuid "^8.3.2"
+
 "@next/env@13.3.0":
   version "13.3.0"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-13.3.0.tgz#cc2e49f03060a4684ce7ec7fd617a21bc5b9edba"
