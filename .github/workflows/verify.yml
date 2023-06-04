@@ -1,7 +1,8 @@
 name: Verify
 on:
   pull_request:
-    - main
+    branches:
+      - main
 jobs:
   verification:
     runs-on: ubuntu-latest
