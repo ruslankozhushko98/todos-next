@@ -6,7 +6,6 @@ import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
 import { ListViewModes, Queries } from '@/libs/utils/constants';
 import { queryClient } from '@/libs/config/queryClient';
-import { isAuth } from '@/middlewares';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
@@ -109,9 +108,7 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-  await isAuth(context);
-
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await queryClient.prefetchQuery([Queries.FETCH_CATEGORIES], categoriesService.fetchCategories);
 
   return {
