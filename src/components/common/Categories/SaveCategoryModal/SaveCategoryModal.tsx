@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Modal, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
@@ -7,7 +8,7 @@ import { Formik, FormikHelpers } from 'formik';
 
 import { SaveEntityInitialValues } from '@/libs/utils/types';
 import { saveCategoryValidationSchema } from '@/libs/utils/validationSchemas';
-import { Mutations, Queries } from '@/libs/utils/constants';
+import { Mutations, Queries, TOAST_DURATION } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { SaveCategoryFormContent } from './SaveCategoryFormContent';
 
@@ -30,6 +31,11 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
     mutationKey: [Mutations.CREATE_CATEGORY],
     mutationFn: categoriesService.createCategory,
     onSuccess: () => {
+      toast('Success', {
+        type: 'success',
+        autoClose: TOAST_DURATION,
+      });
+
       queryClient.invalidateQueries([Queries.FETCH_CATEGORIES]);
     },
   });

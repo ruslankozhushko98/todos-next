@@ -1,6 +1,8 @@
 import '@/styles/globals.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 import { QueryClientProvider, Hydrate } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
@@ -31,6 +33,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
 
           <ReactQueryDevtools />
+
+          <ToastContainer />
         </Hydrate>
       </QueryClientProvider>
     </SessionProvider>

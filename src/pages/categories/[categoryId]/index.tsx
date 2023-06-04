@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { Button, Divider, Empty, List, Row, Typography } from 'antd';
@@ -15,7 +16,7 @@ import {
 } from '@tanstack/react-query';
 
 import { queryClient } from '@/libs/config/queryClient';
-import { Mutations, Queries } from '@/libs/utils/constants';
+import { Mutations, Queries, TOAST_DURATION } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category, Todo } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
@@ -47,12 +48,25 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
     onSuccess: (data) => {
       queryClient.setQueryData([Queries.FETCH_CATEGORY_DETAILS], data);
     },
+    onError: (error) => {
+      toast(`Error: ${error.response.data.message}`, {
+        type: 'error',
+        position: 'top-right',
+        autoClose: TOAST_DURATION,
+      });
+    },
   });
   const { mutate: removeTodo } = useMutation({
     mutationKey: [Mutations.REMOVE_TODO],
     mutationFn: categoriesService.removeTodo,
     onSuccess: () => {
       refetch();
+
+      toast('Todo was removed successfully!', {
+        type: 'success',
+        position: 'top-right',
+        autoClose: TOAST_DURATION,
+      });
     },
   });
 

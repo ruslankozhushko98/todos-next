@@ -22,3 +22,5 @@ export enum Mutations {
   CREATE_TODO = 'CREATE_TODO',
   EDIT_TODO = 'EDIT_TODO',
 }
+
+export const TOAST_DURATION = 6000;
