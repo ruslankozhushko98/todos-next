@@ -11,6 +11,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
 }
 
 .icon {

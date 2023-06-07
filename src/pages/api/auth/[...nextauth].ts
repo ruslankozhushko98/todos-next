@@ -1,12 +1,13 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-// import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 
 import { supabase } from '@/libs/config/supabase';
+import { mongoClient } from '@/libs/config/mongoClient';
 
 export default NextAuth({
-  // adapter: UpstashRedisAdapter(supabase),
+  adapter: MongoDBAdapter(mongoClient.connect()),
   providers: [
     GoogleProvider({
       clientId: String(process.env.GOOGLE_CLIENT_ID),
@@ -37,44 +38,24 @@ export default NextAuth({
       },
     }),
   ],
-  // session: {
-  //   strategy: 'jwt',
-  // },
-  // pages: {
-  //   signIn: '/auth/sign-in',
-  // },
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     const { data: dbUser } = await supabase.from('users')
-  //       .select()
-  //       .eq('id', user.id)
-  //       .single();
+  session: {
+    strategy: 'jwt',
+  },
+  secret: process.env.JWT_SECRET,
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
 
-  //     if (!dbUser) {
-  //       token.id = user.id;
-  //       return token;
-  //     }
+      return token;
+    },
+    session({ session, token }) {
+      if (session && session.user) {
+        session.user.id = token.id;
+      }
 
-  //     return {
-  //       id: dbUser.id,
-  //       email: dbUser.email,
-  //       name: `${dbUser.firstName} ${dbUser.lastName}`,
-  //       picture: dbUser.image,
-  //     };
-  //   },
-
-  //   async session({ token, session }) {
-  //     if (token) {
-  //       session.user.id = token.id;
-  //       session.user.name = token.name;
-  //       session.user.email = token.email;
-  //       session.user.image = token.picture;
-  //     }
-
-  //     return session;
-  //   },
-  //   redirect() {
-  //     return '/categories';
-  //   },
-  // },
+      return session;
+    },
+  },
 });
