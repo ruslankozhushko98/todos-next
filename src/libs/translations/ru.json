@@ -22,6 +22,10 @@
           "label": "Выполнено"
         }
       }
+    },
+    "toasts": {
+      "todoRemovedMessage": "Задача успешно удалена!",
+      "categoryCreatedMessage": "Категория успешно сохранена!"
     }
   },
   "categoryDetails": {

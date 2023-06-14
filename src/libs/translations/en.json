@@ -22,6 +22,11 @@
           "label": "Is done"
         }
       }
+    },
+    "toasts": {
+      "todoRemovedMessage": "Todo was removed successfully!",
+      "todoSavedMessage": "Todo was saved successfully!",
+      "categoryCreatedMessage": "Category was saved successfully!"
     }
   },
   "categoryDetails": {

@@ -31,7 +31,7 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
     mutationKey: [Mutations.CREATE_CATEGORY],
     mutationFn: categoriesService.createCategory,
     onSuccess: () => {
-      toast('Success', {
+      toast(t('categories.toasts.categoryCreatedMessage'), {
         type: 'success',
         autoClose: TOAST_DURATION,
       });

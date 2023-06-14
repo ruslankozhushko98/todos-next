@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { Formik, FormikHelpers } from 'formik';
@@ -8,7 +9,7 @@ import { CloseOutlined } from '@ant-design/icons';
 
 import { SaveTodoInitialValues } from '@/libs/utils/types';
 import { saveTodoValidationSchema } from '@/libs/utils/validationSchemas';
-import { Mutations, Queries } from '@/libs/utils/constants';
+import { Mutations, Queries, TOAST_DURATION } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { Todo } from '@/models';
 import { SaveTodoFormContent } from './SaveTodoFormContent';
@@ -29,6 +30,12 @@ export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) =>
     mutationKey: [Mutations.CREATE_TODO],
     mutationFn: categoriesService.createTodo,
     onSuccess: () => {
+      toast(t('categories.toasts.todoSavedMessage'), {
+        type: 'success',
+        position: 'top-right',
+        autoClose: TOAST_DURATION,
+      });
+
       queryClient.invalidateQueries([Queries.FETCH_CATEGORY_DETAILS]);
     },
   });
@@ -36,6 +43,12 @@ export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) =>
     mutationKey: [Mutations.EDIT_TODO],
     mutationFn: categoriesService.editTodo,
     onSuccess: () => {
+      toast(t('categories.toasts.todoSavedMessage'), {
+        type: 'success',
+        position: 'top-right',
+        autoClose: TOAST_DURATION,
+      });
+
       queryClient.invalidateQueries([Queries.FETCH_CATEGORY_DETAILS]);
     },
   });

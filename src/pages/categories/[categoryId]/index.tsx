@@ -62,7 +62,7 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
     onSuccess: () => {
       refetch();
 
-      toast('Todo was removed successfully!', {
+      toast(t('categories.toasts.todoRemoveMessage'), {
         type: 'success',
         position: 'top-right',
         autoClose: TOAST_DURATION,
