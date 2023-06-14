@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DehydratedState, dehydrate, useQuery } from '@tanstack/react-query';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { List, Row, Typography, Divider, Empty, Button } from 'antd';
 
 import { ListViewModes, Queries } from '@/libs/utils/constants';
@@ -108,7 +108,7 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   await queryClient.prefetchQuery([Queries.FETCH_CATEGORIES], categoriesService.fetchCategories);
 
   return {
