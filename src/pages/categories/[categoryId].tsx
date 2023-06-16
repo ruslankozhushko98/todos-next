@@ -163,10 +163,6 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
 export const getStaticPaths = async () => {
   const data = await categoriesService.fetchCategories();
 
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
-
   const paths = data.map((category: Category) => ({
     params: { categoryId: String(category.id) },
   }));
