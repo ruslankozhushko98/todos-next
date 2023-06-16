@@ -51,11 +51,13 @@ export default NextAuth({
       return token;
     },
     session({ session, token }) {
-      if (session && session.user) {
-        session.user.id = token.id;
-      }
-
-      return session;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+        },
+      };
     },
   },
 });

@@ -46,7 +46,7 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
     onSuccess: (data) => {
       queryClient.setQueryData([Queries.FETCH_CATEGORY_DETAILS], data);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       toast(`Error: ${error.response.data.message}`, {
         type: 'error',
         position: 'top-right',
