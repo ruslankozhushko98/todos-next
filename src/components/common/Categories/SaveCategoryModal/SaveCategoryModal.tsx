@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Modal, Typography } from 'antd';
+import { Modal } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { Formik, FormikHelpers } from 'formik';
 
 import { SaveEntityInitialValues } from '@/libs/utils/types';
 import { saveCategoryValidationSchema } from '@/libs/utils/validationSchemas';
-import { Mutations, Queries } from '@/libs/utils/constants';
+import { Mutations, Queries, TOAST_DURATION } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { SaveCategoryFormContent } from './SaveCategoryFormContent';
 
@@ -30,6 +31,11 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
     mutationKey: [Mutations.CREATE_CATEGORY],
     mutationFn: categoriesService.createCategory,
     onSuccess: () => {
+      toast(t('categories.toasts.categoryCreatedMessage'), {
+        type: 'success',
+        autoClose: TOAST_DURATION,
+      });
+
       queryClient.invalidateQueries([Queries.FETCH_CATEGORIES]);
     },
   });
@@ -52,14 +58,11 @@ export const SaveCategoryModal: FC<Props> = ({ isOpened, onClose }) => {
   return (
     <Modal
       title={
-        <Typography.Title
-          level={4}
-          className={classes.title}
-        >
+        <h4 className="text-text text-2xl font-normal mt-0">
           {t('categories.saveCategoryModal.title')}
-        </Typography.Title>
+        </h4>
       }
-      closeIcon={<CloseOutlined className={classes.closeIcon} />}
+      closeIcon={<CloseOutlined className="text-text text-lg" />}
       open={isOpened}
       onCancel={onClose}
       footer={null}

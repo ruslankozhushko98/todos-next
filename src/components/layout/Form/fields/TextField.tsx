@@ -37,11 +37,19 @@ export const TextField: FC<Props> = ({
       help={isError ? meta.error : null}
       hasFeedback={hasFeedback}
     >
-      <Input
-        {...field}
-        {...props}
-        className={classNames(classes.textField, className)}
-      />
+      {props.type === 'password' ? (
+        <Input.Password
+          {...field}
+          {...props}
+          className={classNames(classes.textField, className)}
+        />      
+      ) : (
+        <Input
+          {...field}
+          {...props}
+          className={classNames(classes.textField, className)}
+        />
+      )}
     </Form.Item>
   );
 };

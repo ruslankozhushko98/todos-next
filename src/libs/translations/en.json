@@ -22,6 +22,11 @@
           "label": "Is done"
         }
       }
+    },
+    "toasts": {
+      "todoRemovedMessage": "Todo was removed successfully!",
+      "todoSavedMessage": "Todo was saved successfully!",
+      "categoryCreatedMessage": "Category was saved successfully!"
     }
   },
   "categoryDetails": {
@@ -35,9 +40,28 @@
   "home": {
     "title": "Home"
   },
+  "auth": {
+    "orYouCan": "Or you can:",
+    "signOut": "Sign Out",
+    "signIn": {
+      "title": "Sign In",
+      "signInBtn": "Sign In",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password"
+        }
+      }
+    }
+  },
   "noDataMessage": "No data",
   "search": "Search",
   "language": "Language",
   "editBtn": "Edit",
-  "removeBtn": "Remove"
+  "removeBtn": "Remove",
+  "hey": "Hey"
 }

@@ -22,6 +22,10 @@
           "label": "Выполнено"
         }
       }
+    },
+    "toasts": {
+      "todoRemovedMessage": "Задача успешно удалена!",
+      "categoryCreatedMessage": "Категория успешно сохранена!"
     }
   },
   "categoryDetails": {
@@ -35,9 +39,28 @@
   "home": {
     "title": "Главная"
   },
+  "auth": {
+    "signOut": "Выход",
+    "signIn": {
+      "orYouCan": "Или вы можете:",
+      "title": "Логин",
+      "signInBtn": "Войти",
+      "fields": {
+        "email": {
+          "label": "Эл почта",
+          "placeholder": "Введите эл почту"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        }
+      }
+    }
+  },
   "noDataMessage": "Нет данных",
   "search": "Поиск",
   "language": "Язык",
   "editBtn": "Редактировать",
-  "removeBtn": "Удалить"
+  "removeBtn": "Удалить",
+  "hey": "Ку"
 }
