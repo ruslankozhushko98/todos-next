@@ -27,11 +27,6 @@ class AuthService {
     const { data } = await httpClient.post('/auth/sign-up', credentials);
     return data;
   };
-
-  public fetchMe = async () => {
-    const { data } = await httpClient.get('/auth/me');
-    return data;
-  };
 }
 
 export const authService = AuthService.getInstance;
