@@ -2,15 +2,15 @@ import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DehydratedState, dehydrate, useQuery } from '@tanstack/react-query';
 import { GetStaticProps } from 'next';
-import { List, Row, Typography, Divider, Empty, Button } from 'antd';
+import { List, Divider, Empty } from 'antd';
 
 import { ListViewModes, Queries } from '@/libs/utils/constants';
 import { queryClient } from '@/libs/config/queryClient';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
-import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher/ListViewSwitcher';
-import { SearchBar } from '@/components/common/SearchBar/SearchBar';
+import { ListViewSwitcher } from '@/components/common/Categories/ListViewSwitcher';
+import { SearchBar } from '@/components/common/SearchBar';
 import { CategoryItem } from '@/components/common/Categories/CategoryItem/CategoryItem';
 import { SaveCategoryModal } from '@/components/common/Categories/SaveCategoryModal/SaveCategoryModal';
 
@@ -57,31 +57,32 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
 
   return (
     <MainLayout title={t('categories.title')}>
-      <Row justify="space-between" className={classes.searchRow}>
+      <div className="flex justify-between mb-5">
         <SearchBar value={search} onChange={handleSearch} />
 
-        <Button
-          type="primary"
-          htmlType="button"
-          size="large"
+        <button
+          type="button"
           onClick={toggleOpened}
+          className="bg-sky-600 hover:bg-sky-700 px-5 rounded-xl"
         >
-          {t('categories.addCategory')}
-        </Button>
-      </Row>
+          <span className="text-white text-base">
+            {t('categories.addCategory')}
+          </span>
+        </button>
+      </div>
 
-      <Row justify="space-between" align="middle">
-        <Typography.Text className={classes.title}>
+      <div className="flex justify-between items-center">
+        <span className="text-text text-3xl">
           {t('categories.title')}
-        </Typography.Text>
+        </span>
 
         <ListViewSwitcher
           viewMode={listViewMode}
           setViewMode={setListViewMode}
         />
-      </Row>
+      </div>
 
-      <Divider className={classes.divider} />
+      <Divider className="bg-dark4" />
 
       <List
         dataSource={categoriesFound}
@@ -91,9 +92,9 @@ const Categories: FC<Props> = ({ dehydratedState }) => {
           emptyText: (
             <Empty
               description={
-                <Typography.Text className={classes.emptyMsg}>
+                <span className="text-text text-base">
                   {t('noDataMessage')}
-                </Typography.Text>
+                </span>
               }
             />
           ),

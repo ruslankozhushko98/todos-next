@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { Formik, FormikHelpers } from 'formik';
-import { Modal, Typography } from 'antd';
+import { Modal } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
 import { SaveTodoInitialValues } from '@/libs/utils/types';
@@ -81,14 +81,11 @@ export const SaveTodoModal: FC<Props> = ({ isOpened, onClose, selectedTodo }) =>
   return (
     <Modal
       title={
-        <Typography.Title
-          level={4}
-          className={classes.title}
-        >
+        <h4 className="text-text text-2xl font-normal mt-0">
           {t('categories.saveCategoryModal.title')}
-        </Typography.Title>
+        </h4>
       }
-      closeIcon={<CloseOutlined className={classes.closeIcon} />}
+      closeIcon={<CloseOutlined className="text-text text-lg" />}
       open={isOpened}
       onCancel={onClose}
       destroyOnClose

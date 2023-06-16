@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
-import { Button, Form, Row, Typography } from 'antd';
+import { Form } from 'antd';
 
 import { SaveTodoInitialValues } from '@/libs/utils/types';
 import {
@@ -24,9 +24,9 @@ export const SaveTodoFormContent: FC<Props> = ({ onCancel }) => {
     <Form onFinish={handleSubmit} layout="vertical">
       <TextField
         label={
-          <Typography.Text className={classes.label}>
+          <span className="text-text text-base">
             {t('categories.saveCategoryModal.fields.titleField.label')}
-          </Typography.Text>
+          </span>
         }
         placeholder={t('categories.saveCategoryModal.fields.titleField.placeholder').toString()}
         type="text"
@@ -37,11 +37,11 @@ export const SaveTodoFormContent: FC<Props> = ({ onCancel }) => {
       />
 
       <TextAreaField
-        className={classes.textarea}
+        className="resize-none"
         label={
-          <Typography.Text className={classes.label}>
+          <span className="text-text text-base">
             {t('categories.saveCategoryModal.fields.descriptionField.label')}
-          </Typography.Text>
+          </span>
         }
         placeholder={t('categories.saveCategoryModal.fields.descriptionField.placeholder').toString()}
         name="description"
@@ -49,38 +49,39 @@ export const SaveTodoFormContent: FC<Props> = ({ onCancel }) => {
         rows={10}
       />
 
-      <Row justify="end">
+      <div className="flex justify-end">
         <SwitchField
           formItemClassName={classes.formItemSwitch}
           name="isDone"
           label={
-            <Typography.Text className={classes.label}>
+            <span className="text-text text-base">
               {t('categories.saveCategoryModal.fields.switchField.label')}
-            </Typography.Text>
+            </span>
           }
         />
-      </Row>
+      </div>
 
-      <Row justify="end" align="middle">
-        <Button
-          type="default"
-          size="large"
-          htmlType="button"
+      <div className="flex justify-end items-center">
+        <button
+          type="button"
           onClick={onCancel}
+          className="bg-white hover:bg-slate-100 px-5 py-2 rounded-xl"
         >
-          {t('categories.saveCategoryModal.cancelBtn')}
-        </Button>
+          <span className="text-black text-base">
+            {t('categories.saveCategoryModal.cancelBtn')}
+          </span>
+        </button>
 
-        <Button
-          type="primary"
-          size="large"
-          htmlType="submit"
-          className={classes.saveBtn}
-          loading={isSubmitting}
+        <button
+          type="submit"
+          className="ml-4 bg-blue hover:bg-sky-600 px-5 py-2 rounded-xl"
+          disabled={isSubmitting}
         >
-          {t('categories.saveCategoryModal.saveBtn')}
-        </Button>
-      </Row>
+          <span className="text-white text-base">
+            {t('categories.saveCategoryModal.saveBtn')}
+          </span>
+        </button>
+      </div>
     </Form>
   );
 };

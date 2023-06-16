@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { Button, Divider, Empty, List, Row, Typography } from 'antd';
+import { Divider, Empty, List } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,11 +20,9 @@ import { Mutations, Queries, TOAST_DURATION } from '@/libs/utils/constants';
 import { categoriesService } from '@/services/CategoriesService';
 import { Category, Todo } from '@/models';
 import { MainLayout } from '@/components/layout/MainLayout/MainLayout';
-import { SearchBar } from '@/components/common/SearchBar/SearchBar';
+import { SearchBar } from '@/components/common/SearchBar';
 import { TodoItem } from '@/components/common/CategoryDetails/TodosList/TodoItem';
 import { SaveTodoModal } from '@/components/common/CategoryDetails/SaveTodoModal/SaveTodoModal';
-
-import classes from './CategoryDetails.module.scss';
 
 interface Params extends ParsedUrlQuery {
   categoryId: string;
@@ -111,25 +109,29 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
 
   return (
     <MainLayout title={t('categoryDetails.title')}>
-      <Row justify="space-between" align="middle">
+      <div className="flex justify-between items-center">
         <SearchBar value={search} onChange={handleSearch} />
 
-        <Button
-          type="primary"
-          htmlType="button"
-          size="large"
+        <button
+          type="button"
+          className="bg-sky-600 hover:bg-sky-700 px-5 py-2.5 rounded-xl"
           onClick={toggleOpened}
         >
-          {t('categoryDetails.todoList.addTodo')}
-        </Button>
-      </Row>
+          <span className="text-white text-base">
+            {t('categoryDetails.todoList.addTodo')}
+          </span>
+        </button>
+      </div>
 
-      <Link href="/categories" className={classes.backBtn}>
-        <LeftOutlined className={classes.icon} />
+      <Link
+        href="/categories"
+        className="bg-transparent border-none cursor-pointer pl-0 mt-4 no-underline hover:underline text-2xl text-text flex items-center w-fit"
+      >
+        <LeftOutlined className="text-text text-lg mr-2.5" />
         {t('categoryDetails.backBtn')}
       </Link>
 
-      <Divider className={classes.divider} />
+      <Divider className="bg-dark4" />
 
       <List
         grid={{ column: 1 }}
@@ -140,9 +142,9 @@ const CategoryDetails: FC<Props> = ({ dehydratedState }) => {
           emptyText: (
             <Empty
               description={
-                <Typography.Text className={classes.emptyMsg}>
+                <span className="text-text text-base">
                   {t('noDataMessage')}
-                </Typography.Text>
+                </span>
               }
             />
           ),
