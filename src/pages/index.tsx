@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <MainLayout title={t('home.title')}>
-      <h1>Home</h1>
+      <h1 className="text-text text-2xl">Home</h1>
     </MainLayout>
   );
 }

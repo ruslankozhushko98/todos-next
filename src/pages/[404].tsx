@@ -2,7 +2,11 @@ import { NextPage } from 'next';
 
 const Error404: NextPage = () => {
   return (
-    <div>404</div>
+    <div>
+      <span className="text-white text-lg ml-5">
+        Error 404
+      </span>
+    </div>
   );
 };
 
