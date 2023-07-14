@@ -10,15 +10,3 @@ export const saveTodoValidationSchema = Yup.object({
   description: Yup.string().label('Description'),
   isDone: Yup.bool().label('Is done').default(false),
 });
-
-export const signInValidationSchema = Yup.object({
-  email: Yup.string()
-    .email('Email is invalid')
-    .label('Email')
-    .required(),
-
-  password: Yup.string()
-    .label('Password')
-    .min(6, 'The password is too short!')
-    .required(),
-});
